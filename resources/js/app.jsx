@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/inertia-react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
 
 createInertiaApp({
     resolve: name =>

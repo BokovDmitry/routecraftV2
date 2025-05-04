@@ -1,1 +1,0 @@
-import{j as r}from"./app-CUbmYAZf.js";import"./index-3fE0ImSM.js";import o from"./Navbar-C8TJX9aK.js";import t from"./Hero-C6bMoMOS.js";import m from"./Features-DW3ycBls.js";function x(){return r.jsxs(r.Fragment,{children:[r.jsx(o,{}),r.jsx(t,{}),r.jsx(m,{})]})}export{x as default};
