@@ -1,0 +1,38 @@
+.gallery-section {
+    background-color: #F2F4F3;
+  }
+  
+  .gallery-section .section-title {
+    font-family: 'Roboto Serif', serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #1c1c1c;
+  }
+  
+  .main-image {
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  .thumb-image {
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    height: 100px;
+    object-fit: cover;
+    width: 140px;
+    border-radius: 12px;
+  }
+  
+  .thumb-image:hover {
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+  
+  .thumb-image.active {
+    outline: 3px solid #77c2a6;
+    outline-offset: 2px;
+  }
+  
