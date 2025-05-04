@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Hero from './Hero';
 import Features from './Features';
 import PopularRoutes from './PopularRoutes';
+import FAQ from './FAQ';
 import '../../css/app.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Hero />
       <Features />
       <PopularRoutes /> 
+      <FAQ />
     </>
   );
 }
