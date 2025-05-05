@@ -1,1 +1,0 @@
-import{j as e}from"./app-1MN-o7Hn.js";function t(){return e.jsx("section",{className:"routes-page py-5 px-4",children:e.jsx("div",{className:"container",children:e.jsx("h1",{className:"routes-title text-center mb-5",children:"Explore Routes"})})})}export{t as default};

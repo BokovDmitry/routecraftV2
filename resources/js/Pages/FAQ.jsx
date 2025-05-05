@@ -5,7 +5,7 @@ function FAQ() {
   return (
     <section className="faq-section py-5 px-4">
       <div className="container">
-        <h2 className="text-center mb-5 section-title">Frequently Asked Questions</h2>
+        <h2 className="text-center mb-16 section-title">Frequently Asked Questions</h2>
         <Accordion defaultActiveKey="0">
 
           <Accordion.Item eventKey="0" className="mb-3 item first">

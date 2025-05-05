@@ -10,9 +10,9 @@ function Gallery() {
   const [selected, setSelected] = useState(gallery1);
 
   return (
-    <section className="gallery-section py-5 px-4">
+    <section className="gallery-section py-24 px-4">
       <div className="container">
-        <h2 className="text-center mb-5 section-title">Moments from the Road</h2>
+        <h2 className="text-center mb-16 section-title">Moments from the Road</h2>
 
         <div className="d-flex justify-content-center mb-4">
           <img src={selected} alt="Selected" className="main-image shadow-sm" />
