@@ -1,0 +1,45 @@
+.footer-section {
+    background-color: #111;
+    color: #f1f1f1;
+  }
+  
+  .footer-title {
+    font-family: 'Roboto Serif', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+  
+  .footer-links li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-links a {
+    font-family: 'Inter', sans-serif;
+    color: #bbbbbb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    color: #77c2a6;
+  }
+  
+  .footer-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #cccccc;
+    line-height: 1.6;
+  }
+  
+  .social-icon {
+    font-size: 1.4rem;
+    color: #bbbbbb;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: #77c2a6;
+  }
+  
