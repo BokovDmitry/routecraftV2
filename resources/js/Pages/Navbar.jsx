@@ -8,7 +8,7 @@ function Navbar() {
           <div className="navbar-logo me-5">RouteCraft</div>
           <ul className="navbar-links d-flex list-unstyled mb-0">
             <li className="me-4"><a href="#" className="active">Home</a></li>
-            <li className="me-4"><a href="#">Routes</a></li>
+            <li className="me-4"><a href="/routes">Routes</a></li>
             <li className="me-4"><a href="#">Favorites</a></li>
             <li className="me-4"><a href="#">My Routes</a></li>
             <li><a href="#">About Us</a></li>

@@ -15,7 +15,7 @@ function Hero() {
           Explore ready-made travel routes or create your own.<br />
           Filter by city, days, and budget – and share your journey with the world.
         </p>
-        <button className="hero-button">Start Exploring</button>
+        <a href="/routes" className="hero-button">Start Exploring</a>
       </div>
     </div>
   );

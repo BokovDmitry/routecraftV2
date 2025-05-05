@@ -10,7 +10,7 @@ function Footer() {
             <h5 className="footer-title">RouteCraft</h5>
             <ul className="list-unstyled footer-links">
               <li><a href="#">Home</a></li>
-              <li><a href="#">Routes</a></li>
+              <li><a href="/routes">Routes</a></li>
               <li><a href="#">Favorites</a></li>
               <li><a href="#">My Routes</a></li>
               <li><a href="#">About Us</a></li>
