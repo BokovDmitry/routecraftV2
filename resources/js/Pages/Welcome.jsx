@@ -8,11 +8,11 @@ import Gallery from './Gallery';
 import Footer from './Footer';
 import '../../css/app.css';
 
-function App() {
+function App ({ auth }) {
 
   return (
     <>
-      <Navbar />
+      <Navbar auth={auth}/>
       <Hero />
       <Features />
       <PopularRoutes /> 

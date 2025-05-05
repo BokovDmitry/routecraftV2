@@ -2,8 +2,7 @@ import '../../css/Navbar.css';
 import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 
-function Navbar() {
-  console.log('Ziggy:', window.Ziggy);
+function Navbar({ auth }) {
   return (
     <nav className="navbar custom-navbar">
       <div className="container-fluid d-flex justify-content-between align-items-center px-4 px-md-5">
@@ -18,9 +17,17 @@ function Navbar() {
           </ul>
         </div>
         <div className="navbar-buttons d-flex gap-2 align-items-center">
-          {/* <button className="btn-outline">Log In</button> */}
-          <Link href={route('login', {}, window.Ziggy)} className="btn-outline">Log In</Link>
-          <Link href={route('register', {}, window.Ziggy)} className="btn-outline">Sign Up</Link>
+        {auth.user ? (
+            <>
+              <span className="text-white">Welcome, {auth.user.name}</span>
+              <Link href={route('logout')} method="post" className="btn-outline">Log Out</Link>
+            </>
+          ) : (
+            <>
+              <Link href={route('login', {}, window.Ziggy)} className="btn-outline">Log In</Link>
+              <Link href={route('register', {}, window.Ziggy)} className="btn-outline">Sign Up</Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
