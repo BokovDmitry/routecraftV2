@@ -23,6 +23,11 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register');
     }
 
+    protected function registered(Request $request, $user)
+    {
+        return redirect('/');
+    }
+
     /**
      * Handle an incoming registration request.
      *
