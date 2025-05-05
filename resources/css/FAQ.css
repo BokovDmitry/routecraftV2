@@ -13,16 +13,16 @@
     color: #1c1c1c;
   }
   
-  .accordion-item {
+  .item {
     border: none;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    background-color: #ffffff;
+    background-color: white;
     overflow: hidden;
     transition: box-shadow 0.2s ease;
   }
   
-  .accordion-item:hover {
+  .item:hover {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   }
   
