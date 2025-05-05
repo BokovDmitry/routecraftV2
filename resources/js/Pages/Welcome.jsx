@@ -4,6 +4,8 @@ import Hero from './Hero';
 import Features from './Features';
 import PopularRoutes from './PopularRoutes';
 import FAQ from './FAQ';
+import Gallery from './Gallery';
+import Footer from './Footer';
 import '../../css/app.css';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
       <Features />
       <PopularRoutes /> 
       <FAQ />
+      <Gallery />
+      <Footer />
     </>
   );
 }

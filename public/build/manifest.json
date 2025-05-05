@@ -93,6 +93,26 @@
     "file": "assets/filter-B4tHENhj.jpg",
     "src": "resources/assets/filter.jpg"
   },
+  "resources/assets/gallery1.jpg": {
+    "file": "assets/gallery1-DNlk78Ec.jpg",
+    "src": "resources/assets/gallery1.jpg"
+  },
+  "resources/assets/gallery2.jpg": {
+    "file": "assets/gallery2-7XwAReov.jpg",
+    "src": "resources/assets/gallery2.jpg"
+  },
+  "resources/assets/gallery3.jpg": {
+    "file": "assets/gallery3-DB3hwFs9.jpg",
+    "src": "resources/assets/gallery3.jpg"
+  },
+  "resources/assets/gallery4.jpg": {
+    "file": "assets/gallery4-TGPVk5pe.jpg",
+    "src": "resources/assets/gallery4.jpg"
+  },
+  "resources/assets/gallery5.jpg": {
+    "file": "assets/gallery5-U-IrjUpi.jpg",
+    "src": "resources/assets/gallery5.jpg"
+  },
   "resources/assets/hero-bg.jpg": {
     "file": "assets/hero-bg-CB7lPCcu.jpg",
     "src": "resources/assets/hero-bg.jpg"
@@ -269,6 +289,39 @@
       "assets/share-fV6BLX1q.jpg"
     ]
   },
+  "resources/js/Pages/Footer.jsx": {
+    "file": "assets/Footer-Ba4--k1M.js",
+    "name": "Footer",
+    "src": "resources/js/Pages/Footer.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_index-BnK7o-LQ.js"
+    ],
+    "css": [
+      "assets/Footer-SY2EgNdd.css"
+    ]
+  },
+  "resources/js/Pages/Gallery.jsx": {
+    "file": "assets/Gallery-B-2I7ITZ.js",
+    "name": "Gallery",
+    "src": "resources/js/Pages/Gallery.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_index-BnK7o-LQ.js"
+    ],
+    "css": [
+      "assets/Gallery-B-V87ps-.css"
+    ],
+    "assets": [
+      "assets/gallery1-DNlk78Ec.jpg",
+      "assets/gallery2-7XwAReov.jpg",
+      "assets/gallery3-DB3hwFs9.jpg",
+      "assets/gallery4-TGPVk5pe.jpg",
+      "assets/gallery5-U-IrjUpi.jpg"
+    ]
+  },
   "resources/js/Pages/Hero.jsx": {
     "file": "assets/Hero-DmIahuaL.js",
     "name": "Hero",
@@ -419,6 +472,8 @@
       "resources/js/Pages/Dashboard.jsx",
       "resources/js/Pages/FAQ.jsx",
       "resources/js/Pages/Features.jsx",
+      "resources/js/Pages/Footer.jsx",
+      "resources/js/Pages/Gallery.jsx",
       "resources/js/Pages/Hero.jsx",
       "resources/js/Pages/Navbar.jsx",
       "resources/js/Pages/PopularRoutes.jsx",
