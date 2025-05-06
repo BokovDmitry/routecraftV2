@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/inertia-react';
+import { Link } from '@inertiajs/react';
 import background from '../../assets/hero-bg.jpg';
 import '../../css/Hero.css';
 

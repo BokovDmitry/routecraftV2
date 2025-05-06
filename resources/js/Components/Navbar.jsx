@@ -6,7 +6,8 @@ function Navbar() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { url } = usePage();
+  const { url, props } = usePage(); // Access Inertia props
+  const { auth } = props; // Extract the auth prop
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,8 +54,17 @@ function Navbar() {
               </ul>
             </div>
             <div className="navbar-buttons d-flex gap-2 align-items-center">
-              <button className="btn-outline">Log In</button>
-              <button className="btn-filled">Sign Up</button>
+              {auth.user ? (
+                <>
+                  <span className="text-white"><b>{auth.user.name}</b></span>
+                  <Link href={route('logout')} method="post" className="btn-outline">Log Out</Link>
+                </>
+              ) : (
+                <>
+                  <Link href={route('login', {}, window.Ziggy)} className="btn-outline">Log In</Link>
+                  <Link href={route('register', {}, window.Ziggy)} className="btn-outline">Sign Up</Link>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -88,8 +98,17 @@ function Navbar() {
                   <li><Link href="/about" className="d-block py-2">About Us</Link></li>
                 </ul>
                 <div className="d-flex flex-column gap-2">
-                  <button className="btn-outline">Log In</button>
-                  <button className="btn-filled">Sign Up</button>
+                  {auth.user ? (
+                    <>
+                      <span className="text-white">Welcome, {auth.user.name}</span>
+                      <Link href={route('logout')} method="post" className="btn-outline">Log Out</Link>
+                    </>
+                  ) : (
+                    <>
+                      <button className="btn-outline">Log In</button>
+                      <button className="btn-filled">Sign Up</button>
+                    </>
+                  )}
                 </div>
               </div>
             )}
