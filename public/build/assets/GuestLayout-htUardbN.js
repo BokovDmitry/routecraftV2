@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:public/build/assets/GuestLayout-htUardbN.js
-import{j as e,J as r}from"./app-vwipnnB1.js";import{A as t}from"./ApplicationLogo-BIaQzrh8.js";function a({children:s}){return e.jsxs("div",{className:"flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0",children:[e.jsx("div",{children:e.jsx(r,{href:"/",children:e.jsx(t,{className:"h-20 w-20 fill-current text-gray-500"})})}),e.jsx("div",{className:"mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg",children:s})]})}export{a as G};
-========
-import{j as e,J as r}from"./app-Bsjza2KJ.js";import{A as t}from"./ApplicationLogo-BKMR9Y4l.js";function a({children:s}){return e.jsxs("div",{className:"flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0",children:[e.jsx("div",{children:e.jsx(r,{href:"/",children:e.jsx(t,{className:"h-20 w-20 fill-current text-gray-500"})})}),e.jsx("div",{className:"mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg",children:s})]})}export{a as G};
->>>>>>>> fa6047bf8fcc784d8f5f8288be744b9572ec2c01:public/build/assets/GuestLayout-CJmw7T8M.js
