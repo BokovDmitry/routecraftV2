@@ -1,9 +1,11 @@
-import background from '../../assets/bg4.jpg';
+import background from '../../assets/bg14.jpg';
 import '../../css/RoutesHero.css';
 import { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import iconDefault from '../../assets/add.png';
 import iconHover from '../../assets/plus.png';
+import iconRemove from '../../assets/remove.png';
+
 
 function RoutesHero() {
   const [places, setPlaces] = useState(['']);
@@ -42,6 +44,57 @@ function RoutesHero() {
     }
   };
 
+  const validateText = (value, setter, field) => {
+    if (value.trim() === '') {
+      setter(`Please enter ${field}.`);
+    } else {
+      setter('');
+    }
+  };
+
+  const validateNumber = (value, setter, field) => {
+    if (value.trim() === '') {
+      setter(`Please enter ${field}.`);
+    } else if (isNaN(Number(value)) || Number(value) <= 0) {
+      setter(`${field} must be a positive number.`);
+    } else {
+      setter('');
+    }
+  };
+
+  const removePlace = (index) => {
+    const updated = places.filter((_, i) => i !== index);
+    if (updated.length === 0 || updated[updated.length - 1].trim() !== '') {
+      setPlaces([...updated, '']);
+    } else {
+      setPlaces([...updated]);
+    }
+  };
+
+  const handleSearch = () => {
+    let isValid = true;
+
+    if (country.trim() === '') {
+      setCountryError('Please enter Country.');
+      isValid = false;
+    } else {
+      setCountryError('');
+    }
+
+    if (city.trim() === '') {
+      setCityError('Please enter City.');
+      isValid = false;
+    } else {
+      setCityError('');
+    }
+
+    if (isValid) {
+      console.log('Search submitted!');
+    }
+  };
+
+
+
   const handleSearch = () => {
     const query = {
       ...formData,
@@ -59,12 +112,13 @@ function RoutesHero() {
     <div className="routes-hero" style={{ backgroundImage: `url(${background})` }}>
       <div className="routes-hero-overlay" />
 
-      <div className="routes-hero-text">
+      <div className="routes-hero-text" style={{ flexGrow: 1 }}>
         <h1>FIND THE PERFECT ROUTE FOR YOUR TRIP</h1>
         <p>
           Search by destination, number of days, budget, and the must-see places you don’t want to miss.
         </p>
       </div>
+
 
       <div className="routes-form-wrapper">
         <h3 className="form-subheading">Plan your route below</h3>
@@ -79,6 +133,7 @@ function RoutesHero() {
               value={formData.destination_country}
               onChange={handleInputChange}
             />
+            <div className="error-text">{countryError || ' '}</div>
           </div>
           <div className="input-block">
             <label>City</label>
@@ -89,7 +144,9 @@ function RoutesHero() {
               value={formData.destination_city}
               onChange={handleInputChange}
             />
+            <div className="error-text">{cityError || ' '}</div>
           </div>
+
           <div className="input-block">
             <label>Days</label>
             <input
@@ -143,19 +200,29 @@ function RoutesHero() {
           </div>
         </div>
 
-        <div className="added-places">
-          {places.slice(0, -1).map((place, index) => (
-            <div key={index} className="place-tag">
-              {place}
-            </div>
-          ))}
+        <div className="places-and-search">
+          <div className="added-places">
+            {places.slice(0, -1).map((place, index) => (
+              <div key={index} className="place-tag">
+                {place}
+                <button
+                  className="remove-btn-img"
+                  onClick={() => removePlace(index)}
+                  title="Remove"
+                >
+                  <img src={iconRemove} alt="Remove" className="remove-icon" />
+                </button>
+              </div>
+            ))}
+          </div>
+
+
+          <div className="search-btn-container">
+            <button className="search-btn" onClick={handleSearch}>SEARCH</button>
+
+          </div>
         </div>
 
-        <div className="search-btn-container">
-          <button className="search-btn" onClick={handleSearch}>
-            Search
-          </button>
-        </div>
       </div>
     </div>
   );
