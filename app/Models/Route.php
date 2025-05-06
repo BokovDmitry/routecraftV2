@@ -15,6 +15,7 @@ class Route extends Model
         'title',
         'description',
         'destination_city',
+        'destination_country',
         'stops',
         'likes',
         'days',
