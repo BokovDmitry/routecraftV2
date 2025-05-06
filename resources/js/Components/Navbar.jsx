@@ -53,10 +53,10 @@ function Navbar() {
                 <li><Link href="/about">About Us</Link></li>
               </ul>
             </div>
-            <div className="navbar-buttons d-flex gap-2 align-items-center">
+            <div className="navbar-buttons d-flex gap-4 align-items-center">
               {auth.user ? (
                 <>
-                  <span className="text-white"><b>{auth.user.name}</b></span>
+                  <span className="username">{auth.user.name}</span>
                   <Link href={route('logout')} method="post" className="btn-outline">Log Out</Link>
                 </>
               ) : (
@@ -100,7 +100,7 @@ function Navbar() {
                 <div className="d-flex flex-column gap-2">
                   {auth.user ? (
                     <>
-                      <span className="text-white">Welcome, {auth.user.name}</span>
+                      <span className="username mobile">{auth.user.name}</span>
                       <Link href={route('logout')} method="post" className="btn-outline">Log Out</Link>
                     </>
                   ) : (

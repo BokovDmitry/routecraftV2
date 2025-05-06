@@ -11,6 +11,18 @@
     padding-top: 20px;
     padding-bottom: 20px;
   }
+
+  .username {
+    font-family: 'Roboto Serif', serif;
+    font-weight: 600;
+    font-size: 1.25em;
+    cursor: default;
+    color: white;
+  }
+
+  .mobile{
+    color: black;
+  }
   
   .navbar-left {
     gap: 8em;
