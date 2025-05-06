@@ -18,10 +18,9 @@ Route::get('/', function () {
 
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
-
-// Route::get('/routes', function () {
-//     return Inertia::render('Routes');
-// });
+Route::middleware(['auth'])->group(function () {
+    Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
