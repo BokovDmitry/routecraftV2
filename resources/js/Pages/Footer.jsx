@@ -1,5 +1,6 @@
 import '../../css/Footer.css';
 import { FaInstagram, FaTwitter, FaFacebookF } from 'react-icons/fa';
+import { Link } from '@inertiajs/inertia-react';
 
 function Footer() {
   return (
@@ -9,11 +10,11 @@ function Footer() {
           <div className="col-md-4">
             <h5 className="footer-title">RouteCraft</h5>
             <ul className="list-unstyled footer-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="/routes">Routes</a></li>
-              <li><a href="#">Favorites</a></li>
-              <li><a href="#">My Routes</a></li>
-              <li><a href="#">About Us</a></li>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/routes">Routes</Link></li>
+              <li><Link href="/favorites">Favorites</Link></li>
+              <li><Link href="/my-routes">My Routes</Link></li>
+              <li><Link href="/about">About Us</Link></li>
             </ul>
           </div>
 

@@ -1,0 +1,107 @@
+import background from '../../assets/bg4.jpg';
+import '../../css/RoutesHero.css';
+import { useState } from 'react';
+import iconDefault from '../../assets/add.png';
+import iconHover from '../../assets/plus.png';
+
+function RoutesHero() {
+  const [places, setPlaces] = useState(['']);
+  const [error, setError] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handlePlaceChange = (index, value) => {
+    const updated = [...places];
+    updated[index] = value;
+    setPlaces(updated);
+
+    if (value.trim() !== '') {
+      setError('');
+    }
+  };
+
+  const addPlace = () => {
+    const lastPlace = places[places.length - 1].trim();
+    if (lastPlace !== '') {
+      setPlaces([...places, '']);
+      setError('');
+    } else {
+      setError('Please enter a place before adding another.');
+    }
+  };
+
+  return (
+    <div className="routes-hero" style={{ backgroundImage: `url(${background})` }}>
+      <div className="routes-hero-overlay" />
+
+      <div className="routes-hero-text">
+        <h1>FIND THE PERFECT ROUTE FOR YOUR TRIP</h1>
+        <p>
+          Search by destination, number of days, budget, and the must-see places you don’t want to miss.
+        </p>
+      </div>
+
+      <div className="routes-form-wrapper">
+        <h3 className="form-subheading">Plan your route below</h3>
+
+        <div className="input-row">
+          <div className="input-block">
+            <label>Country</label>
+            <input type="text" placeholder="Enter country" />
+          </div>
+          <div className="input-block">
+            <label>City</label>
+            <input type="text" placeholder="Enter city" />
+          </div>
+          <div className="input-block">
+            <label>Days</label>
+            <input type="number" placeholder="e.g. 5" />
+          </div>
+          <div className="input-block">
+            <label>Budget (€)</label>
+            <input type="number" placeholder="e.g. 300" />
+          </div>
+          <div className="input-block">
+            <label>Must-See Places</label>
+            <div className="places-input-group">
+              <input
+                type="text"
+                placeholder="e.g. Eiffel Tower"
+                value={places[places.length - 1]}
+                onChange={(e) => handlePlaceChange(places.length - 1, e.target.value)}
+              />
+              <button
+                className="add-btn-img"
+                onClick={addPlace}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <img
+                  src={isHovered ? iconHover : iconDefault}
+                  alt="Add"
+                  className="add-icon"
+                />
+              </button>
+
+            </div>
+            {<div className={`error-text ${error ? '' : 'hidden'}`}>{error || ' '}</div>}
+
+          </div>
+        </div>
+
+        <div className="added-places">
+          {places.slice(0, -1).map((place, index) => (
+            <div key={index} className="place-tag">
+              {place}
+            </div>
+          ))}
+        </div>
+
+        <div className="search-btn-container">
+          <button className="search-btn">Search</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default RoutesHero;
