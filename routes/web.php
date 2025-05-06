@@ -23,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
 });
 
+Route::get('/routes/search', [RouteController::class, 'search'])->name('routes.search');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

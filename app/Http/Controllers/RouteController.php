@@ -61,6 +61,7 @@ class RouteController extends Controller
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
+    
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -70,9 +71,18 @@ class RouteController extends Controller
             'stops.*' => 'string', // Each stop must be a string
             'days' => 'required|integer|min:1',
             'budget' => 'required|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the image
         ]);
+    
+        // Handle the image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('routes', 'public'); // Store the image in the 'public/routes' directory
+            $validatedData['image'] = $imagePath;
+        }
+    
+        // Create the route
         $route = Route::create([
-            'user_id' => Auth::id(), // Associate the route with the authenticated user
+            'user_id' => Auth::id(),
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
             'destination_city' => $validatedData['destination_city'],
@@ -80,10 +90,12 @@ class RouteController extends Controller
             'stops' => $validatedData['stops'],
             'days' => $validatedData['days'],
             'budget' => $validatedData['budget'],
+            'image' => $validatedData['image'] ?? null, // Save the image path
         ]);
+    
         return response()->json([
             'message' => 'Route created successfully!',
             'route' => $route,
         ], 201);
-        }
+    }
 }

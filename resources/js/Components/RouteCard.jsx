@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Col, Card } from 'react-bootstrap';
 import defaultBookmark from '../../assets/icons/bookmark-default.png';
 import filledBookmark from '../../assets/icons/bookmark-filled.png';
+import defaultImage from '../../assets/dubai.jpg';
 import heartIcon from '../../assets/icons/heart.png';
 import '../../css/RouteCard.css'
 
@@ -29,8 +30,7 @@ const [favorites, setFavorites] = useState([]);
               />
             </div>
 
-            {/* <Card.Img variant="top" src={route.image} alt={route.title} className="route-image" /> */}
-            <Card.Img variant="top" src='../../assets/london.jpg' alt={route.title} className="route-image" />
+            <Card.Img variant="top" src={route.image === null ? defaultImage : `/storage/${route.image}`} alt={route.image === null ? "No Image" : route.title} className="route-image" />
 
             <Card.Body className="route-info">
               <div className="d-flex justify-content-between align-items-center mb-1">

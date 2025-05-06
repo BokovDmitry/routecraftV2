@@ -1,6 +1,7 @@
 import background from '../../assets/bg4.jpg';
 import '../../css/RoutesHero.css';
 import { useState } from 'react';
+import { Inertia } from '@inertiajs/inertia';
 import iconDefault from '../../assets/add.png';
 import iconHover from '../../assets/plus.png';
 
@@ -8,6 +9,18 @@ function RoutesHero() {
   const [places, setPlaces] = useState(['']);
   const [error, setError] = useState('');
   const [isHovered, setIsHovered] = useState(false);
+  const [formData, setFormData] = useState({
+    destination_country: '',
+    destination_city: '',
+    days: '',
+    budget_min: '',
+    budget_max: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handlePlaceChange = (index, value) => {
     const updated = [...places];
@@ -29,6 +42,19 @@ function RoutesHero() {
     }
   };
 
+  const handleSearch = () => {
+    const query = {
+      ...formData,
+      must_see_places: places.slice(0, -1), // Exclude the last empty input
+    };
+
+    Inertia.get(route('routes.search'), query, {
+      onError: (errors) => {
+        console.error(errors);
+      },
+    });
+  };
+
   return (
     <div className="routes-hero" style={{ backgroundImage: `url(${background})` }}>
       <div className="routes-hero-overlay" />
@@ -46,19 +72,50 @@ function RoutesHero() {
         <div className="input-row">
           <div className="input-block">
             <label>Country</label>
-            <input type="text" placeholder="Enter country" />
+            <input
+              type="text"
+              name="destination_country"
+              placeholder="Enter country"
+              value={formData.destination_country}
+              onChange={handleInputChange}
+            />
           </div>
           <div className="input-block">
             <label>City</label>
-            <input type="text" placeholder="Enter city" />
+            <input
+              type="text"
+              name="destination_city"
+              placeholder="Enter city"
+              value={formData.destination_city}
+              onChange={handleInputChange}
+            />
           </div>
           <div className="input-block">
             <label>Days</label>
-            <input type="number" placeholder="e.g. 5" />
+            <input
+              type="number"
+              name="days"
+              placeholder="e.g. 5"
+              value={formData.days}
+              onChange={handleInputChange}
+            />
           </div>
           <div className="input-block">
             <label>Budget (€)</label>
-            <input type="number" placeholder="e.g. 300" />
+            <input
+              type="number"
+              name="budget_min"
+              placeholder="Min budget"
+              value={formData.budget_min}
+              onChange={handleInputChange}
+            />
+            <input
+              type="number"
+              name="budget_max"
+              placeholder="Max budget"
+              value={formData.budget_max}
+              onChange={handleInputChange}
+            />
           </div>
           <div className="input-block">
             <label>Must-See Places</label>
@@ -81,10 +138,8 @@ function RoutesHero() {
                   className="add-icon"
                 />
               </button>
-
             </div>
             {<div className={`error-text ${error ? '' : 'hidden'}`}>{error || ' '}</div>}
-
           </div>
         </div>
 
@@ -97,7 +152,9 @@ function RoutesHero() {
         </div>
 
         <div className="search-btn-container">
-          <button className="search-btn">Search</button>
+          <button className="search-btn" onClick={handleSearch}>
+            Search
+          </button>
         </div>
       </div>
     </div>

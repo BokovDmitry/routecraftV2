@@ -19,7 +19,8 @@ class Route extends Model
         'stops',
         'likes',
         'days',
-        'budget'
+        'budget',
+        'image',
     ];
 
     protected $casts = [
