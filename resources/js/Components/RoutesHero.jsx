@@ -9,13 +9,22 @@ import iconRemove from '../../assets/remove.png';
 function RoutesHero() {
   const [places, setPlaces] = useState(['']);
   const [error, setError] = useState('');
-  const [countryError, setCountryError] = useState('');
-  const [cityError, setCityError] = useState('');
   const [isHovered, setIsHovered] = useState(false);
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
   const [countryError, setCountryError] = useState('');
   const [cityError, setCityError] = useState('');
+
+  const [formData, setFormData] = useState({
+    destination_country: '',
+    destination_city: '',
+    days: '',
+    budget_min: '',
+    budget_max: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
 
   const handlePlaceChange = (index, value) => {
@@ -66,34 +75,36 @@ function RoutesHero() {
   };
 
   const handleSearch = () => {
+    let isValid = true;
+  
+    if (formData.destination_city.trim() === '') {
+      setCityError('Please enter City.');
+      isValid = false;
+    } else {
+      setCityError('');
+    }
+  
+    if (formData.destination_country.trim() === '') {
+      setCountryError('Please enter Country.');
+      isValid = false;
+    } else {
+      setCountryError('');
+    }
+  
+    if (!isValid) return;
+  
     const query = {
       ...formData,
-      must_see_places: places.slice(0, -1), 
+      must_see_places: places.slice(0, -1),
     };
-
-    if(formData.destination_city.trim() === '')
-    {
-      setCityError('Please enter City.')
-      return 
-    }
-    else
-      setCityError('')
-    
-
-    if(formData.destination_country.trim() === '') 
-    {
-      setCountryError('Please enter Country')
-      return
-    }
-    else
-      setCountryError('')
-
+  
     Inertia.get(route('routes.search'), query, {
       onError: (errors) => {
         console.error(errors);
       },
     });
   };
+  
 
   return (
     <div className="routes-hero" style={{ backgroundImage: `url(${background})` }}>
@@ -114,20 +125,24 @@ function RoutesHero() {
           <div className="input-block">
             <label>Country</label>
             <input
-              type="text"
-              placeholder="Enter country"
-              onChange={(e) => setCountry(e.target.value)}
-            />
-            <div className="error-text">{countryError || ' '}</div>
+            type="text"
+            name="destination_country"
+            placeholder="Enter country"
+            value={formData.destination_country}
+            onChange={handleInputChange}
+          />
+          <div className="error-text">{countryError || ' '}</div>
           </div>
           <div className="input-block">
             <label>City</label>
             <input
-              type="text"
-              placeholder="Enter city"
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <div className="error-text">{cityError || ' '}</div>
+            type="text"
+            name="destination_city"
+            placeholder="Enter city"
+            value={formData.destination_city}
+            onChange={handleInputChange}
+          />
+          <div className="error-text">{cityError || ' '}</div>
           </div>
 
           <div className="input-block">

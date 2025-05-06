@@ -22,7 +22,7 @@
 .routes-hero-overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.36);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
   pointer-events: none; 
 }
@@ -42,14 +42,14 @@
   
   
   .routes-hero-text h1 {
-    font-size: 2.8em;
+    font-size: 3em;
     font-family: 'Roboto Serif', serif;
     font-weight: 600;
     margin-bottom: 0.6em;
   }
   
   .routes-hero-text p {
-    font-size: 1.3em;
+    font-size: 1.4em;
     font-family: 'Roboto Serif', serif;
     font-weight: 300;
     max-width: 700px;
