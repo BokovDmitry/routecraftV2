@@ -1,1 +1,0 @@
-import{j as r}from"./app-CamYBKZp.js";import s from"./Navbar-c8Nfkgow.js";import e from"./RoutesHero-ByQ1D35C.js";import"./index-DuWD-qXq.js";function m(){return r.jsxs(r.Fragment,{children:[r.jsx(s,{}),r.jsx(e,{}),r.jsx("section",{className:"routes-page py-5 px-4",children:r.jsx("div",{className:"container"})})]})}export{m as default};
