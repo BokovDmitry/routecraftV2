@@ -1,5 +1,5 @@
-import Navbar from './Navbar';
-import RoutesHero from './RoutesHero';
+import Navbar from '../Components/Navbar';
+import RoutesHero from '../Components/RoutesHero';
 import '../../css/Routes.css';
 
 function Routes() {
