@@ -10,6 +10,8 @@ import iconRemove from '../../assets/remove.png';
 function RoutesHero() {
   const [places, setPlaces] = useState(['']);
   const [error, setError] = useState('');
+  const [countryError, setCountryError] = useState('');
+  const [cityError, setCityError] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const [formData, setFormData] = useState({
     destination_country: '',
@@ -72,34 +74,27 @@ function RoutesHero() {
   };
 
   const handleSearch = () => {
-    let isValid = true;
-
-    if (country.trim() === '') {
-      setCountryError('Please enter Country.');
-      isValid = false;
-    } else {
-      setCountryError('');
-    }
-
-    if (city.trim() === '') {
-      setCityError('Please enter City.');
-      isValid = false;
-    } else {
-      setCityError('');
-    }
-
-    if (isValid) {
-      console.log('Search submitted!');
-    }
-  };
-
-
-
-  const handleSearch = () => {
     const query = {
       ...formData,
-      must_see_places: places.slice(0, -1), // Exclude the last empty input
+      must_see_places: places.slice(0, -1), 
     };
+
+    if(formData.destination_city.trim() === '')
+    {
+      setCityError('Please enter City.')
+      return 
+    }
+    else
+      setCityError('')
+    
+
+    if(formData.destination_country.trim() === '') 
+    {
+      setCountryError('Please enter Country')
+      return
+    }
+    else
+      setCountryError('')
 
     Inertia.get(route('routes.search'), query, {
       onError: (errors) => {
@@ -159,20 +154,24 @@ function RoutesHero() {
           </div>
           <div className="input-block">
             <label>Budget (€)</label>
-            <input
-              type="number"
-              name="budget_min"
-              placeholder="Min budget"
-              value={formData.budget_min}
-              onChange={handleInputChange}
-            />
-            <input
-              type="number"
-              name="budget_max"
-              placeholder="Max budget"
-              value={formData.budget_max}
-              onChange={handleInputChange}
-            />
+            <div className='input-block-budget'>
+              <input
+                type="number"
+                name="budget_min"
+                placeholder="Min budget"
+                value={formData.budget_min}
+                onChange={handleInputChange}
+                className='input-budget'
+              />
+              <input
+                type="number"
+                name="budget_max"
+                placeholder="Max budget"
+                value={formData.budget_max}
+                onChange={handleInputChange}
+                className='input-budget'
+              />
+            </div>
           </div>
           <div className="input-block">
             <label>Must-See Places</label>
