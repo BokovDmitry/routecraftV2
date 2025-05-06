@@ -1,29 +1,23 @@
-import React, { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import Navbar from '../Components/Navbar';
+import RoutesHero from '../Components/RoutesHero';
+import React from 'react';
 import ShowRoutes from '../Components/ShowRoutes';
+import '../../css/Routes.css';
 
-export default function Routes({ routes, sortBy, sortOrder }) {
-    const [sort, setSort] = useState({ sortBy, sortOrder });
+function Routes({ routes, sortBy, sortOrder }) {
 
-    const handleSortChange = (e) => {
-        const [newSortBy, newSortOrder] = e.target.value.split(':');
-        setSort({ sortBy: newSortBy, sortOrder: newSortOrder });
-        window.location.href = route('routes.index', { sort_by: newSortBy, sort_order: newSortOrder });
-    };
-
-    return (
-        <div>
-            <h1>Routes Page</h1>
-            <div>
-                <label htmlFor="sort">Sort By:</label>
-                <select id="sort" value={`${sort.sortBy}:${sort.sortOrder}`} onChange={handleSortChange}>
-                    <option value="created_at:desc">Newest</option>
-                    <option value="created_at:asc">Oldest</option>
-                    <option value="likes:desc">Most Liked</option>
-                    <option value="likes:asc">Least Liked</option>
-                </select>
-            </div>
-            <ShowRoutes routes={routes} />
+  return (
+    <>
+      <Navbar />
+      <RoutesHero />
+      <section className="routes-page py-5 px-4">
+        <div className="container">
+          {/*Add .map() for creating cards*/}
+          <ShowRoutes routes={routes} />
         </div>
-    );
+      </section>
+    </>
+  );
 }
+
+export default Routes;

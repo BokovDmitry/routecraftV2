@@ -19,6 +19,10 @@ Route::get('/', function () {
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
 
+// Route::get('/routes', function () {
+//     return Inertia::render('Routes');
+// });
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

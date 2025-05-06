@@ -79,7 +79,6 @@ function PopularRoutes() {
   const renderRouteCard = (route) => (
     <Col key={route.id} xs="auto">
       <Card className="route-card shadow-sm position-relative mx-auto">
-        {/* Bookmark Icon */}
         <div
           className="bookmark-icon"
           onClick={() => handleToggleFavorite(route.id)}
@@ -121,7 +120,7 @@ function PopularRoutes() {
 
   return (
     <section className="popular-section py-5 px-4">
-      <h2 className="text-center mb-5 section-title">Popular Routes This Month</h2>
+      <h2 className="text-center mb-16 section-title">Popular Routes This Month</h2>
       <Container>
         <Row className="justify-content-center g-3 mb-4">
           {routes.slice(0, 3).map(renderRouteCard)}

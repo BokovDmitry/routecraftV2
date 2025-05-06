@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/inertia-react';
 import background from '../../assets/hero-bg.jpg';
 import '../../css/Hero.css';
 
@@ -15,7 +16,7 @@ function Hero() {
           Explore ready-made travel routes or create your own.<br />
           Filter by city, days, and budget – and share your journey with the world.
         </p>
-        <button className="hero-button">Start Exploring</button>
+        <Link href="/routes" className="hero-button">Start Exploring</Link>
       </div>
     </div>
   );

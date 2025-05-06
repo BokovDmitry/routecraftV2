@@ -51,14 +51,14 @@
   font-weight: 300;
   font-size: 1.2em;
   line-height: 1.6;
-  margin-bottom: 2.8em;
+  margin-bottom: 3em;
 }
 
 .hero-button {
   background: white;
   color: black;
   border: 2px solid white;
-  padding: 5px 25px;
+  padding: 6px 25px;
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 1.2em;
