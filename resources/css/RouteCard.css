@@ -42,12 +42,13 @@
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     color: #1c1c1c;
-    font-size: 1rem;
+    font-size: 1em;
   }
   
   .route-description {
-    font-size: 0.9rem;
-    font-family: 'Inter', sans-serif;
+    font-size: 0.8em;
+    font-family: 'Roboto Serif', serif;
+    font-weight: 300;
     color: #333;
   }
   .bookmark-icon {

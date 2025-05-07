@@ -1,6 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import { Container } from 'react-bootstrap';
-import Navbar from '../Navbar';
+import Navbar from '../Components/Navbar';
 import '../../css/RouteDetail.css';
 
 export default function RouteDetail({ route }) {

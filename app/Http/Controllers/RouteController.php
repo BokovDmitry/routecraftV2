@@ -101,12 +101,10 @@ class RouteController extends Controller
 
     public function show($id)
     {
-        // Fetch the route by ID, including the user who created it
         $route = Route::with('user')->findOrFail($id);
-        
-        // Return the route data to the frontend
-        return response()->json([
-            'route' => $route,
-        ]);
+    
+        return Inertia::render('RouteDetail', ['route' => $route]);
+
     }
+    
 }
