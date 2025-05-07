@@ -1,7 +1,6 @@
 import background from '../../assets/bg14.jpg';
 import '../../css/RoutesHero.css';
 import { useState } from 'react';
-import { Inertia } from '@inertiajs/inertia';
 import iconDefault from '../../assets/add.png';
 import iconHover from '../../assets/plus.png';
 import iconRemove from '../../assets/remove.png';
@@ -10,9 +9,10 @@ import iconRemove from '../../assets/remove.png';
 function RoutesHero() {
   const [places, setPlaces] = useState(['']);
   const [error, setError] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
   const [countryError, setCountryError] = useState('');
   const [cityError, setCityError] = useState('');
-  const [isHovered, setIsHovered] = useState(false);
+
   const [formData, setFormData] = useState({
     destination_country: '',
     destination_city: '',
@@ -25,6 +25,7 @@ function RoutesHero() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
 
   const handlePlaceChange = (index, value) => {
     const updated = [...places];
@@ -74,34 +75,36 @@ function RoutesHero() {
   };
 
   const handleSearch = () => {
+    let isValid = true;
+  
+    if (formData.destination_city.trim() === '') {
+      setCityError('Please enter City.');
+      isValid = false;
+    } else {
+      setCityError('');
+    }
+  
+    if (formData.destination_country.trim() === '') {
+      setCountryError('Please enter Country.');
+      isValid = false;
+    } else {
+      setCountryError('');
+    }
+  
+    if (!isValid) return;
+  
     const query = {
       ...formData,
-      must_see_places: places.slice(0, -1), 
+      must_see_places: places.slice(0, -1),
     };
-
-    if(formData.destination_city.trim() === '')
-    {
-      setCityError('Please enter City.')
-      return 
-    }
-    else
-      setCityError('')
-    
-
-    if(formData.destination_country.trim() === '') 
-    {
-      setCountryError('Please enter Country')
-      return
-    }
-    else
-      setCountryError('')
-
+  
     Inertia.get(route('routes.search'), query, {
       onError: (errors) => {
         console.error(errors);
       },
     });
   };
+  
 
   return (
     <div className="routes-hero" style={{ backgroundImage: `url(${background})` }}>
@@ -122,35 +125,29 @@ function RoutesHero() {
           <div className="input-block">
             <label>Country</label>
             <input
-              type="text"
-              name="destination_country"
-              placeholder="Enter country"
-              value={formData.destination_country}
-              onChange={handleInputChange}
-            />
-            <div className="error-text">{countryError || ' '}</div>
+            type="text"
+            name="destination_country"
+            placeholder="Enter country"
+            value={formData.destination_country}
+            onChange={handleInputChange}
+          />
+          <div className="error-text">{countryError || ' '}</div>
           </div>
           <div className="input-block">
             <label>City</label>
             <input
-              type="text"
-              name="destination_city"
-              placeholder="Enter city"
-              value={formData.destination_city}
-              onChange={handleInputChange}
-            />
-            <div className="error-text">{cityError || ' '}</div>
+            type="text"
+            name="destination_city"
+            placeholder="Enter city"
+            value={formData.destination_city}
+            onChange={handleInputChange}
+          />
+          <div className="error-text">{cityError || ' '}</div>
           </div>
 
           <div className="input-block">
             <label>Days</label>
-            <input
-              type="number"
-              name="days"
-              placeholder="e.g. 5"
-              value={formData.days}
-              onChange={handleInputChange}
-            />
+            <input type="number" placeholder="e.g. 5" />
           </div>
           <div className="input-block">
             <label>Budget (€)</label>
@@ -194,8 +191,10 @@ function RoutesHero() {
                   className="add-icon"
                 />
               </button>
+
             </div>
             {<div className={`error-text ${error ? '' : 'hidden'}`}>{error || ' '}</div>}
+
           </div>
         </div>
 
