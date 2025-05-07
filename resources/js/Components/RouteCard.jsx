@@ -38,7 +38,9 @@ const [favorites, setFavorites] = useState([]);
                 <span className="text-muted small">{route.days} Days</span>
               </div>
 
-              <Card.Subtitle className="mb-1 text-muted small">{route.author}</Card.Subtitle>
+              <Card.Subtitle className="mb-1 text-muted small">
+                {route.user ? `by ${route.user.name}` : 'Unknown Author'}
+              </Card.Subtitle>
 
               <div className="d-flex justify-content-between align-items-start mt-2">
                 {route.description ? (

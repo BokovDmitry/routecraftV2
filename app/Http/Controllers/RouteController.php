@@ -15,7 +15,7 @@ class RouteController extends Controller
         $sortOrder = $request->get('sort_order', 'desc'); // Default to 'desc'
 
         // Fetch sorted routes from the database
-        $routes = Route::orderBy($sortBy, $sortOrder)->get();
+        $routes = Route::with('user')->orderBy($sortBy, $sortOrder)->get();
 
         // Pass the sorted routes to the Routes page
         return Inertia::render('Routes', [
