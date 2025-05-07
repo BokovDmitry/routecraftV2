@@ -63,7 +63,7 @@ const routes = [
   },
 ];
 
-function PopularRoutes() {
+function PopularRoutes({routes}) {
   return (
     <section className="popular-section py-5 px-4">
       <h2 className="text-center mb-16 section-title">Popular Routes This Month</h2>

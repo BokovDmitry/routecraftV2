@@ -27,75 +27,118 @@ class RouteController extends Controller
 
     public function search(Request $request)
     {
-        $request->validate([
-            'destination_country' => 'required|string',
-            'destination_city' => 'required|string',
-        ]);
-
-        $destinationCountry = $request->get('destination_country');
-        $destinationCity = $request->get('destination_city');
-        $days = $request->get('days');
-        $budgetMin = $request->get('budget_min');
-        $budgetMax = $request->get('budget_max');
-
         $query = Route::query();
-        $query->where('destination_country', 'like', "%$destinationCountry%");
-        $query->where('destination_city', 'like', "%$destinationCity%");
-
-        if ($days) {
-            $query->where('days', $days);
+    
+        if ($request->filled('destination_country')) {
+            $query->where('destination_country', 'like', "%{$request->destination_country}%");
         }
-        if ($budgetMin !== null && $budgetMax !== null) {
-            $query->whereBetween('budget', [$budgetMin, $budgetMax]);
+    
+        if ($request->filled('destination_city')) {
+            $query->where('destination_city', 'like', "%{$request->destination_city}%");
         }
-
-        $routes = $query->get();
-
+    
+        if ($request->filled('days')) {
+            $query->where('days', $request->days);
+        }
+    
+        if ($request->filled('budget_min') && $request->filled('budget_max')) {
+            $query->whereBetween('budget', [$request->budget_min, $request->budget_max]);
+        }
+    
+        // Fix: Load the 'user' relationship
+        $routes = $query->with('user')->get();
+    
         return Inertia::render('Routes', [
             'routes' => $routes,
+            'filters' => $request->only(['destination_country', 'destination_city', 'days', 'budget_min', 'budget_max']),
         ]);
     }
+    
 
     public function store(Request $request)
-    {
-        if (!Auth::check()) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-    
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'destination_city' => 'required|string|max:255',
-            'destination_country' => 'required|string|max:255',
-            'stops' => 'required|array', // Ensure stops is an array
-            'stops.*' => 'string', // Each stop must be a string
-            'days' => 'required|integer|min:1',
-            'budget' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the image
-        ]);
-    
-        // Handle the image upload
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('routes', 'public'); // Store the image in the 'public/routes' directory
-            $validatedData['image'] = $imagePath;
-        }
-    
-        // Create the route
-        $route = Route::create([
-            'user_id' => Auth::id(),
-            'title' => $validatedData['title'],
-            'description' => $validatedData['description'],
-            'destination_city' => $validatedData['destination_city'],
-            'destination_country' => $validatedData['destination_country'],
-            'stops' => $validatedData['stops'],
-            'days' => $validatedData['days'],
-            'budget' => $validatedData['budget'],
-            'image' => $validatedData['image'] ?? null, // Save the image path
-        ]);
-    
-        return response()->json([
-            'message' => 'Route created successfully!',
-            'route' => $route,
-        ], 201);
+{
+    if (!Auth::check()) {
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
+
+    // Decode the stops JSON string into an array
+    $stops = json_decode($request->input('stops'), true);
+
+    // Extract only the 'places' arrays
+    $processedStops = array_map(function ($stop) {
+        return $stop['places'] ?? []; // Default to an empty array if 'places' is missing
+    }, $stops);
+
+    // Merge the processed stops back into the request
+    $request->merge([
+        'stops' => $processedStops,
+    ]);
+
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'destination_country' => 'required|string|max:255',
+        'destination_city' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'budget' => 'required|numeric|min:0',
+        'days' => 'required|integer|min:1',
+        'stops' => 'required|array', // Ensure stops is an array
+        'stops.*' => 'array', // Each stop must be an array
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the image
+    ]);
+
+    // Handle the image upload
+    if ($request->hasFile('image')) {
+        $validatedData['image'] = $request->file('image')->store('routes', 'public');
+    }
+
+    // Create the route
+    $route = Route::create([
+        'user_id' => Auth::id(),
+        ...$validatedData,
+    ]);
+
+    return redirect()->route('routes.index')->with('success', 'Route created successfully!');
+}
+
+    public function topLikedRoutes()
+{
+    $routes = Route::with('user') // Include the user relationship
+        ->orderBy('likes', 'desc') // Sort by likes in descending order
+        ->take(6) // Limit to 6 routes
+        ->get();
+
+    return response()->json([
+        'routes' => $routes,
+    ]);
+}
+
+    public function create()
+    {
+        return Inertia::render('CreateRoutePage');
+
+    }
+
+    public function show($id)
+    {
+        $route = Route::with('user')->findOrFail($id);
+    
+        return Inertia::render('RouteDetail', ['route' => $route]);
+
+    }
+
+    public function myRoutes()
+{
+    $user = Auth::user();
+
+    $routes = Route::with('user')
+        ->where('user_id', $user->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return Inertia::render('MyRoutes', [
+        'routes' => $routes,
+    ]);
+}
+
+    
 }
