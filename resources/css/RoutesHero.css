@@ -490,7 +490,9 @@
 
 .remove-icon {
   width: 16px;
+  min-width: 14px;
   height: 16px;
+  min-height: 14px;
   filter: brightness(0); 
   opacity: 1;
   transition: filter 0.2s ease, transform 0.2s ease;
