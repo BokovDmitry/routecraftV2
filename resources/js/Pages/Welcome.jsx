@@ -8,7 +8,7 @@ import Gallery from '../Components/Gallery';
 import Footer from '../Components/Footer';
 import '../../css/app.css';
 
-function App ({ auth }{topLikedRoutes}) {
+function App ({ auth , topLikedRoutes}) {
 
   return (
     <>
