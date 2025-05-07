@@ -15,7 +15,7 @@ function Routes({ routes }) {
   const handleSort = (e) => setSortOption(e.target.value);
 
   const filteredRoutes = routes
-    .filter(route => route.title.toLowerCase().includes(searchTerm))
+    .filter(route => route.title.toLowerCase().includes(searchTerm)) // Search filter
     .sort((a, b) => {
       switch (sortOption) {
         case 'title-asc':
@@ -23,19 +23,19 @@ function Routes({ routes }) {
         case 'title-desc':
           return b.title.localeCompare(a.title);
         case 'date-asc':
-          return new Date(a.created_at) - new Date(b.created_at);
+          return new Date(a.created_at) - new Date(b.created_at); // Date ascending
         case 'date-desc':
-          return new Date(b.created_at) - new Date(a.created_at);
+          return new Date(b.created_at) - new Date(a.created_at); // Date descending
         case 'days-asc':
-          return a.days - b.days;
+          return a.days - b.days; // Days ascending
         case 'days-desc':
-          return b.days - a.days;
+          return b.days - a.days; // Days descending
         case 'likes-asc':
-          return a.likes - b.likes;
+          return a.likes - b.likes; // Likes ascending
         case 'likes-desc':
-          return b.likes - a.likes;
+          return b.likes - a.likes; // Likes descending
         default:
-          return 0;
+          return 0; // Default case if no sorting option selected
       }
     });
 
@@ -59,42 +59,40 @@ function Routes({ routes }) {
         style={{ backgroundImage: `url(${searchIcon})` }}
       />
 
+      <div className="d-flex align-items-center">
+        <span className="sort-text">Sort by:</span>
+        <Form.Select
+          className="sort-dropdown"
+          value={sortOption}
+          onChange={handleSort}
+          aria-label="Sort routes"
+        >
+          <option value="">Default</option>
+          <option value="title-asc">Title (A-Z)</option>
+          <option value="title-desc">Title (Z-A)</option>
+          <option value="date-asc">Date (Oldest First)</option>
+          <option value="date-desc">Date (Newest First)</option>
+          <option value="days-asc">Days (Ascending)</option>
+          <option value="days-desc">Days (Descending)</option>
+          <option value="likes-asc">Likes (Ascending)</option>
+          <option value="likes-desc">Likes (Descending)</option>
+        </Form.Select>
+      </div>
+      </div>
 
-
-  <div className="d-flex align-items-center">
-    <span className="sort-text">Sort by:</span>
-    <Form.Select
-      className="sort-dropdown"
-      value={sortOption}
-      onChange={handleSort}
-      aria-label="Sort routes"
-    >
-      <option value="">Default</option>
-      <option value="title-asc">Title (A-Z)</option>
-      <option value="title-desc">Title (Z-A)</option>
-      <option value="date-asc">Date (Oldest First)</option>
-      <option value="date-desc">Date (Newest First)</option>
-      <option value="days-asc">Days (Ascending)</option>
-      <option value="days-desc">Days (Descending)</option>
-      <option value="likes-asc">Likes (Ascending)</option>
-      <option value="likes-desc">Likes (Descending)</option>
-    </Form.Select>
-  </div>
-</div>
-
-          <Row className="justify-content-center g-3 mb-4">
-            {filteredRoutes.slice(0, 3).map(route => (
-              <RouteCard key={route.id} route={route} />
-            ))}
-          </Row>
-          <Row className="justify-content-center g-3">
-            {filteredRoutes.slice(3).map(route => (
-              <RouteCard key={route.id} route={route} />
-            ))}
-          </Row>
-        </Container>
-      </section>
-    </>
+      <Row className="justify-content-center g-3 mb-4">
+        {filteredRoutes.slice(0, 3).map(route => (
+          <RouteCard key={route.id} route={route} />
+        ))}
+      </Row>
+      <Row className="justify-content-center g-3">
+        {filteredRoutes.slice(3).map(route => (
+          <RouteCard key={route.id} route={route} />
+        ))}
+      </Row>
+    </Container>
+  </section>
+  </>
   );
 }
 

@@ -27,34 +27,33 @@ class RouteController extends Controller
 
     public function search(Request $request)
     {
-        $request->validate([
-            'destination_country' => 'required|string',
-            'destination_city' => 'required|string',
-        ]);
-
-        $destinationCountry = $request->get('destination_country');
-        $destinationCity = $request->get('destination_city');
-        $days = $request->get('days');
-        $budgetMin = $request->get('budget_min');
-        $budgetMax = $request->get('budget_max');
-
         $query = Route::query();
-        $query->where('destination_country', 'like', "%$destinationCountry%");
-        $query->where('destination_city', 'like', "%$destinationCity%");
-
-        if ($days) {
-            $query->where('days', $days);
+    
+        if ($request->filled('destination_country')) {
+            $query->where('destination_country', 'like', "%{$request->destination_country}%");
         }
-        if ($budgetMin !== null && $budgetMax !== null) {
-            $query->whereBetween('budget', [$budgetMin, $budgetMax]);
+    
+        if ($request->filled('destination_city')) {
+            $query->where('destination_city', 'like', "%{$request->destination_city}%");
         }
-
-        $routes = $query->get();
-
+    
+        if ($request->filled('days')) {
+            $query->where('days', $request->days);
+        }
+    
+        if ($request->filled('budget_min') && $request->filled('budget_max')) {
+            $query->whereBetween('budget', [$request->budget_min, $request->budget_max]);
+        }
+    
+        // Fix: Load the 'user' relationship
+        $routes = $query->with('user')->get();
+    
         return Inertia::render('Routes', [
             'routes' => $routes,
+            'filters' => $request->only(['destination_country', 'destination_city', 'days', 'budget_min', 'budget_max']),
         ]);
     }
+    
 
     public function store(Request $request)
     {
