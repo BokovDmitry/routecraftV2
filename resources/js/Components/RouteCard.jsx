@@ -33,10 +33,11 @@ const [favorites, setFavorites] = useState([]);
             <Card.Img variant="top" src={route.image === null ? defaultImage : `/storage/${route.image}`} alt={route.image === null ? "No Image" : route.title} className="route-image" />
 
             <Card.Body className="route-info">
-              <div className="d-flex justify-content-between align-items-center mb-1">
-                <Card.Title as="h6" className="mb-0">{route.title}</Card.Title>
-                <span className="text-muted small">{route.days} Days</span>
-              </div>
+            <div className="d-flex justify-content-between align-items-center mb-1">
+            <Card.Title as="h6" className="mb-0 route-title-truncated">{route.title}</Card.Title>
+            <span className="text-muted small flex-shrink-0">{route.days} Days</span>
+            </div>
+
 
               <Card.Subtitle className="mb-1 text-muted small">{route.author}</Card.Subtitle>
 
