@@ -48,10 +48,18 @@ export default function RouteCard({ route }) {
 
   return (
     <Col key={route.id} xs="auto">
+      <Link
+        href={`/routes/${route.id}`}
+        className="text-decoration-none text-dark"
+      >
+
       <Card className="route-card shadow-sm position-relative mx-auto">
         <div
           className="bookmark-icon"
-          onClick={() => handleToggleFavorite(route.id)}
+            onClick={(e) => {
+              e.preventDefault(); 
+              handleToggleFavorite(route.id);
+            }}
           title="Add to favorites"
         >
           <img
