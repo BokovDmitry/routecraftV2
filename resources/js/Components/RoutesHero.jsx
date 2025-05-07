@@ -4,7 +4,7 @@ import { useState } from 'react';
 import iconDefault from '../../assets/add.png';
 import iconHover from '../../assets/plus.png';
 import iconRemove from '../../assets/remove.png';
-
+import { Inertia } from '@inertiajs/inertia';
 
 function RoutesHero() {
   const [places, setPlaces] = useState(['']);
