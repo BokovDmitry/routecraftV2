@@ -105,6 +105,10 @@
         },
       });
     };
+
+    const resetFilters = () => {
+      Inertia.visit(route('routes.search'), { method: 'get' });
+    }
     
 
     return (
@@ -223,8 +227,8 @@
 
 
             <div className="search-btn-container">
+              <button className="reset-btn" onClick={resetFilters}>RESET</button>
               <button className="search-btn" onClick={handleSearch}>SEARCH</button>
-
             </div>
           </div>
 
