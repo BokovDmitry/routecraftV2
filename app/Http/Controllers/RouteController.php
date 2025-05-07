@@ -110,6 +110,12 @@ class RouteController extends Controller
     ]);
 }
 
+    public function create()
+    {
+        return Inertia::render('CreateRoutePage');
+
+    }
+
     public function show($id)
     {
         $route = Route::with('user')->findOrFail($id);
