@@ -98,4 +98,15 @@ class RouteController extends Controller
             'route' => $route,
         ], 201);
     }
+
+    public function show($id)
+    {
+        // Fetch the route by ID, including the user who created it
+        $route = Route::with('user')->findOrFail($id);
+        
+        // Return the route data to the frontend
+        return response()->json([
+            'route' => $route,
+        ]);
+    }
 }
