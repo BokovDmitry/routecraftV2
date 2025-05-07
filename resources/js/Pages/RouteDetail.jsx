@@ -3,7 +3,15 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import '../../css/RouteDetail.css';
 import background from '../../assets/bg25.jpg';
-import defaultImage from '../../assets/dubai.jpg'; 
+import defaultImage from '../../assets/dubai.jpg';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import defaultBookmark from '../../assets/icons/bookmark-default.png';
+import filledBookmark from '../../assets/icons/bookmark-filled.png';
+import heartDefault from '../../assets/icons/heart-default.png';
+import heartFilled from '../../assets/icons/heart-filled.png';
+
+
 
 export default function RouteDetail({ route }) {
     const {
@@ -21,6 +29,44 @@ export default function RouteDetail({ route }) {
         ? stops.map((places) => ({ places }))
         : [];
     console.log(route);
+
+    const [favorites, setFavorites] = useState([]);
+
+    const [liked, setLiked] = useState(false);
+
+    const toggleLike = () => {
+        setLiked(!liked);
+    };
+
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+                const response = await axios.get('/saved-routes');
+                const savedIds = response.data.map((r) => r.route_id);
+                setFavorites(savedIds);
+            } catch (error) {
+                console.error('Error fetching saved routes:', error);
+            }
+        };
+        fetchFavorites();
+    }, []);
+
+    const handleToggleFavorite = async (routeId) => {
+        const isFavorite = favorites.includes(routeId);
+        try {
+            if (isFavorite) {
+                setFavorites((prev) => prev.filter((id) => id !== routeId));
+                await axios.delete(`/saved-routes/${routeId}`);
+            } else {
+                setFavorites((prev) => [...prev, routeId]);
+                await axios.post('/saved-routes', { route_id: routeId });
+            }
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }
+    };
+
 
     return (
         <>
@@ -46,27 +92,53 @@ export default function RouteDetail({ route }) {
                                 className="route-detail-image w-100"
                             />
                         </Col>
-                        <Col md={7}>
-                            <h2 className="route-title">{title}</h2>
-                            <p className="route-meta">
-                                Created by <strong>{route.user?.name ?? 'Unknown'}</strong> on{' '}
-                                {route.user?.created_at
-                                    ? new Date(route.user.created_at).toLocaleDateString()
-                                    : 'Unknown date'}
-                            </p>
+                        <Col md={7} className="d-flex flex-column justify-content-between">
 
-                            {route.updated_at && route.created_at && route.updated_at !== route.created_at && (
+                            <div>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <h2 className="route-title mb-0">{title}</h2>
+                                    <span
+                                        className="bookmark-circle"
+                                        title="Add to favorites"
+                                        onClick={() => handleToggleFavorite(route.id)}
+                                    >
+                                        <img
+                                            src={favorites.includes(route.id) ? filledBookmark : defaultBookmark}
+                                            alt="bookmark"
+                                        />
+                                    </span>
+                                </div>
+
                                 <p className="route-meta">
-                                    Last updated: {new Date(route.updated_at).toLocaleDateString()}
+                                    Created by <strong>{route.user?.name ?? 'Unknown'}</strong> on{' '}
+                                    {route.user?.created_at
+                                        ? new Date(route.user.created_at).toLocaleDateString()
+                                        : 'Unknown date'}
                                 </p>
-                            )}
 
+                                {route.updated_at && route.created_at && route.updated_at !== route.created_at && (
+                                    <p className="route-meta">
+                                        Last updated: {new Date(route.updated_at).toLocaleDateString()}
+                                    </p>
+                                )}
 
-                            <div className="route-details-list">
-                                <p><strong>Country:</strong> {country}</p>
-                                <p><strong>City:</strong> {city}</p>
-                                <p><strong>Budget:</strong> €{budget}</p>
-                                <p><strong>Days:</strong> {days}</p>
+                                <div className="route-details-list">
+                                    <p><strong>Country:</strong> {country}</p>
+                                    <p><strong>City:</strong> {city}</p>
+                                    <p><strong>Budget:</strong> €{budget}</p>
+                                    <p><strong>Days:</strong> {days}</p>
+                                </div>
+                            </div>
+
+                            <div className="like-section mt-auto align-self-end d-flex align-items-center">
+                                <span className="like-text me-3">Liked: </span>
+                                <img
+                                    src={liked ? heartFilled : heartDefault}
+                                    alt="like icon"
+                                    className="like-icon"
+                                    onClick={toggleLike}
+                                    style={{ cursor: 'pointer' }}
+                                />
                             </div>
                         </Col>
 
