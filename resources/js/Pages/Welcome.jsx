@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import Navbar from './Navbar';
-import Hero from './Hero';
-import Features from './Features';
-import PopularRoutes from './PopularRoutes';
-import FAQ from './FAQ';
-import Gallery from './Gallery';
-import Footer from './Footer';
+import Navbar from '../Components/Navbar';
+import Hero from '../Components/Hero';
+import Features from '../Components/Features';
+import PopularRoutes from '../Components/PopularRoutes';
+import FAQ from '../Components/FAQ';
+import Gallery from '../Components/Gallery';
+import Footer from '../Components/Footer';
 import '../../css/app.css';
 
 function App ({ auth }) {

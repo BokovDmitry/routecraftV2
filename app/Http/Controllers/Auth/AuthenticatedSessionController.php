@@ -36,6 +36,11 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended('/');
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect('/');
+    }
+
     /**
      * Destroy an authenticated session.
      */
