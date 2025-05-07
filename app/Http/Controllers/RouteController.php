@@ -26,33 +26,41 @@ class RouteController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $query = Route::query();
-    
-        if ($request->filled('destination_country')) {
-            $query->where('destination_country', 'like', "%{$request->destination_country}%");
-        }
-    
-        if ($request->filled('destination_city')) {
-            $query->where('destination_city', 'like', "%{$request->destination_city}%");
-        }
-    
-        if ($request->filled('days')) {
-            $query->where('days', $request->days);
-        }
-    
-        if ($request->filled('budget_min') && $request->filled('budget_max')) {
-            $query->whereBetween('budget', [$request->budget_min, $request->budget_max]);
-        }
-    
-        // Fix: Load the 'user' relationship
-        $routes = $query->with('user')->get();
-    
-        return Inertia::render('Routes', [
-            'routes' => $routes,
-            'filters' => $request->only(['destination_country', 'destination_city', 'days', 'budget_min', 'budget_max']),
-        ]);
+{
+    $query = Route::query();
+
+    if ($request->filled('destination_country')) {
+        $query->where('destination_country', 'like', "%{$request->destination_country}%");
     }
+
+    if ($request->filled('destination_city')) {
+        $query->where('destination_city', 'like', "%{$request->destination_city}%");
+    }
+
+    if ($request->filled('days')) {
+        $query->where('days', $request->days);
+    }
+
+    if ($request->filled('budget_min') && $request->filled('budget_max')) {
+        $query->whereBetween('budget', [$request->budget_min, $request->budget_max]);
+    }
+
+    if ($request->filled('must_see_places')) {
+        $places = $request->input('must_see_places');
+        $query->where(function ($q) use ($places) {
+            foreach ($places as $place) {
+                $q->orWhereJsonContains('stops', $place);
+            }
+        });
+    }
+
+    $routes = $query->with('user')->get();
+
+    return Inertia::render('Routes', [
+        'routes' => $routes,
+        'filters' => $request->only(['destination_country', 'destination_city', 'days', 'budget_min', 'budget_max', 'must_see_places']),
+    ]);
+}
     
 
     public function store(Request $request)
