@@ -1,4 +1,5 @@
 import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 import RoutesHero from '../Components/RoutesHero';
 import React, { useState } from 'react';
 import { Container, Row, Form, InputGroup } from 'react-bootstrap';
@@ -92,6 +93,7 @@ function Routes({ routes }) {
       </Row>
     </Container>
   </section>
+  <Footer /> 
   </>
   );
 }

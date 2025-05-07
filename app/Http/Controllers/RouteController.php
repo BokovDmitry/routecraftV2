@@ -103,5 +103,20 @@ class RouteController extends Controller
         return Inertia::render('RouteDetail', ['route' => $route]);
 
     }
+
+    public function myRoutes()
+{
+    $user = Auth::user();
+
+    $routes = Route::with('user')
+        ->where('user_id', $user->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return Inertia::render('MyRoutes', [
+        'routes' => $routes,
+    ]);
+}
+
     
 }

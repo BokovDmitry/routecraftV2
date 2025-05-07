@@ -21,9 +21,11 @@ Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
-});
 
-Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
+    Route::get('/my-routes', [RouteController::class, 'myRoutes'])->name('my-routes');
+
+    Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
+});
 
 Route::get('/routes/search', [RouteController::class, 'search'])->name('routes.search');
 

@@ -1,6 +1,6 @@
 .route-card {
     width: 340px;
-    min-height: 350px; 
+    height: 370px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -11,11 +11,11 @@
   }
   
   .route-info {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 1em;
+    flex-grow: 1;
     box-sizing: border-box;
   }
   
@@ -49,8 +49,9 @@
     font-size: 0.8em;
     font-family: 'Roboto Serif', serif;
     font-weight: 300;
-    color: #333;
+    color: #3f3f3f;
   }
+
   .bookmark-icon {
     position: absolute;
     top: 10px;
