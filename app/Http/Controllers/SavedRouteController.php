@@ -7,45 +7,37 @@ use Illuminate\Support\Facades\Auth;
 
 class SavedRouteController extends Controller
 {
+    public function index()
+    {
+        $savedRoutes = SavedRoute::where('user_id', Auth::id())->get(['route_id']);
+        return response()->json($savedRoutes);
+    }
+
     public function store(Request $request)
     {
-        // Validate the request
-        $validated = $request->validate([
-            'route_id' => 'required|exists:routes,id', // Ensure the route exists
+        $request->validate([
+            'route_id' => 'required|exists:routes,id',
         ]);
 
-        // Check if the route is already saved by the user
-        $exists = SavedRoute::where('user_id', Auth::id())
-            ->where('route_id', $validated['route_id'])
-            ->exists();
-
-        if ($exists) {
-            return response()->json(['message' => 'Route already saved'], 409);
-        }
-
-        // Save the route
         SavedRoute::create([
             'user_id' => Auth::id(),
-            'route_id' => $validated['route_id'],
+            'route_id' => $request->route_id,
         ]);
 
         return response()->json(['message' => 'Route saved successfully'], 201);
     }
 
-    public function index()
-{
-    // Ensure the user is authenticated
-    if (Auth::check()) {
-        return response()->json(['message' => 'Unauthorized'], 401);
+    public function destroy($routeId)
+    {
+        $savedRoute = SavedRoute::where('user_id', Auth::id())
+            ->where('route_id', $routeId)
+            ->first();
+
+        if ($savedRoute) {
+            $savedRoute->delete();
+            return response()->json(['message' => 'Route removed successfully'], 200);
+        }
+
+        return response()->json(['message' => 'Route not found'], 404);
     }
-
-    // Fetch all saved routes for the authenticated user
-    $savedRoutes = SavedRoute::with('route') // Assuming a relationship exists
-        ->where('user_id', Auth::id())
-        ->get();
-
-    return response()->json([
-        'saved_routes' => $savedRoutes,
-    ]);
-}
 }

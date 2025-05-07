@@ -25,6 +25,12 @@ Route::get('/', function () {
     ]);
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::post('/saved-routes', [SavedRouteController::class, 'store'])->name('saved-routes.store');
+    Route::delete('/saved-routes/{routeId}', [SavedRouteController::class, 'destroy'])->name('saved-routes.destroy');
+    Route::get('/saved-routes', [SavedRouteController::class, 'index'])->name('saved-routes.index');
+});
+
 Route::get('/routes/search', [RouteController::class, 'search'])->name('routes.search');
 
 Route::get('/dashboard', function () {
