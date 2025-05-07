@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:public/build/assets/GuestLayout-Bcpf7Kp9.js
-import{j as e,J as r}from"./app-HLJn4fcV.js";import{A as t}from"./ApplicationLogo-BnBu0coZ.js";function a({children:s}){return e.jsxs("div",{className:"flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0",children:[e.jsx("div",{children:e.jsx(r,{href:"/",children:e.jsx(t,{className:"h-20 w-20 fill-current text-gray-500"})})}),e.jsx("div",{className:"mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg",children:s})]})}export{a as G};
-========
-import{j as e,J as r}from"./app-CySjQUNz.js";import{A as t}from"./ApplicationLogo-BXQ78HGm.js";function a({children:s}){return e.jsxs("div",{className:"flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0",children:[e.jsx("div",{children:e.jsx(r,{href:"/",children:e.jsx(t,{className:"h-20 w-20 fill-current text-gray-500"})})}),e.jsx("div",{className:"mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg",children:s})]})}export{a as G};
->>>>>>>> ace1d8a22fdb49f66ccc290e86cf9589b340df37:public/build/assets/GuestLayout-CsrUpjqD.js
