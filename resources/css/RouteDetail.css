@@ -1,48 +1,68 @@
-.route-detail-section {
-    background-color: #f9f9f9;
-    padding: 3em 0;
-  }
-  
-  .route-detail-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 2em;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .route-title {
-    font-family: 'Roboto Serif', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.3em;
-  }
-  
-  .route-meta {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 1.5em;
-  }
-  
-  .route-detail-image {
+.route-detail-hero {
+    position: relative;
     width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    margin-bottom: 1.5em;
-    border-radius: 10px;
+    height: 45vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   
-  .route-description {
+  .route-detail-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+    color: white;
+    margin-top: 1em;
+  }
+  
+  
+  .hero-subtitle {
+    font-family: 'Roboto Serif', serif;
+    font-weight: 600;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .hero-title {
+    font-family: 'Roboto Serif', serif;
+    font-weight: 600;
+    font-size: 2.6em;
+    margin-bottom: 0.3em; 
+  }
+  
+  .hero-description {
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    margin-bottom: 1em;
-    line-height: 1.6;
+    font-weight: 200;
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin-bottom: 0;
   }
   
-  .route-likes {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #444;
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 1.8em;
+    }
+  
+    .hero-subtitle {
+      font-size: 1.1em;
+    }
+  
+    .hero-description {
+      font-size: 0.95em;
+    }
   }
   
