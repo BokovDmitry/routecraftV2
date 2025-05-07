@@ -7,7 +7,10 @@ use Inertia\Inertia;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SavedRouteController;
 
+
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
+
+Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
