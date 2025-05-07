@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Col, Card } from 'react-bootstrap';
 import axios from 'axios';
+import { Link } from '@inertiajs/react'; 
 import defaultBookmark from '../../assets/icons/bookmark-default.png';
 import filledBookmark from '../../assets/icons/bookmark-filled.png';
 import defaultImage from '../../assets/dubai.jpg';
@@ -74,25 +75,26 @@ export default function RouteCard({ route }) {
             <span className="text-muted small flex-shrink-0">{route.days} Days</span>
           </div>
 
-          <Card.Subtitle className="mb-1 text-muted small">
-            {route.user ? `by ${route.user.name}` : 'Unknown Author'}
-          </Card.Subtitle>
+            <Card.Subtitle className="mb-1 text-muted small">
+              {route.user ? `by ${route.user.name}` : 'Unknown Author'}
+            </Card.Subtitle>
 
-          <div className="d-flex justify-content-between align-items-start mt-2">
-            {route.description ? (
-              <Card.Text className="route-description mb-0 flex-grow-1 me-2 text-truncate">
-                {route.description}
-              </Card.Text>
-            ) : (
-              <span className="route-description text-muted small">&nbsp;</span>
-            )}
-            <div className="d-flex align-items-center likes-section ms-2">
-              <img src={heartIcon} alt="likes" className="heart-icon me-1" />
-              <span className="small likes-count">{route.likes}</span>
+            <div className="d-flex justify-content-between align-items-start mt-2">
+              {route.description ? (
+                <Card.Text className="route-description mb-0 flex-grow-1 me-2 text-truncate">
+                  {route.description}
+                </Card.Text>
+              ) : (
+                <span className="route-description text-muted small">&nbsp;</span>
+              )}
+              <div className="d-flex align-items-center likes-section ms-2">
+                <img src={heartIcon} alt="likes" className="heart-icon me-1" />
+                <span className="small likes-count">{route.likes}</span>
+              </div>
             </div>
-          </div>
-        </Card.Body>
-      </Card>
+          </Card.Body>
+        </Card>
+      </Link>
     </Col>
   );
 }

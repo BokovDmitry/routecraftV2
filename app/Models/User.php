@@ -45,4 +45,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function routes()
+    {
+        return $this->hasMany(\App\Models\Route::class);
+    }
+
 }
