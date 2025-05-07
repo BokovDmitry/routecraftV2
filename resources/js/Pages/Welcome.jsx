@@ -8,14 +8,14 @@ import Gallery from '../Components/Gallery';
 import Footer from '../Components/Footer';
 import '../../css/app.css';
 
-function App() {
+function App({topLikedRoutes}) {
 
   return (
     <>
       <Navbar />
       <Hero />
       <Features />
-      <PopularRoutes /> 
+      <PopularRoutes routes={topLikedRoutes}/> 
       <FAQ />
       <Gallery />
       <Footer />

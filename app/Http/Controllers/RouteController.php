@@ -97,4 +97,16 @@ class RouteController extends Controller
             'route' => $route,
         ], 201);
     }
+
+    public function topLikedRoutes()
+{
+    $routes = Route::with('user') // Include the user relationship
+        ->orderBy('likes', 'desc') // Sort by likes in descending order
+        ->take(6) // Limit to 6 routes
+        ->get();
+
+    return response()->json([
+        'routes' => $routes,
+    ]);
+}
 }
