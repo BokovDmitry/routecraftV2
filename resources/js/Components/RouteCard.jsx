@@ -53,35 +53,35 @@ export default function RouteCard({ route }) {
         className="text-decoration-none text-dark"
       >
 
-      <Card className="route-card shadow-sm position-relative mx-auto">
-        <div
-          className="bookmark-icon"
+        <Card className="route-card shadow-sm position-relative mx-auto">
+          <div
+            className="bookmark-icon"
             onClick={(e) => {
               e.preventDefault(); 
               handleToggleFavorite(route.id);
             }}
-          title="Add to favorites"
-        >
-          <img
-            src={favorites.includes(route.id) ? filledBookmark : defaultBookmark}
-            alt="bookmark"
-          />
-        </div>
-
-        <Card.Img
-          variant="top"
-          src={route.image === null ? defaultImage : `/storage/${route.image}`}
-          alt={route.image === null ? 'No Image' : route.title}
-          className="route-image"
-        />
-
-        <Card.Body className="route-info">
-          <div className="d-flex justify-content-between align-items-center mb-1">
-            <Card.Title as="h6" className="mb-0 route-title-truncated">
-              {route.title}
-            </Card.Title>
-            <span className="text-muted small flex-shrink-0">{route.days} Days</span>
+            title="Add to favorites"
+          >
+            <img
+              src={favorites.includes(route.id) ? filledBookmark : defaultBookmark}
+              alt="bookmark"
+            />
           </div>
+
+          <Card.Img
+            variant="top"
+            src={route.image === null ? defaultImage : `/storage/${route.image}`}
+            alt={route.image === null ? 'No Image' : route.title}
+            className="route-image"
+          />
+
+          <Card.Body className="route-info">
+            <div className="d-flex justify-content-between align-items-center mb-1">
+              <Card.Title as="h6" className="mb-0 route-title-truncated">
+                {route.title}
+              </Card.Title>
+              <span className="text-muted small flex-shrink-0">{route.days} Days</span>
+            </div>
 
             <Card.Subtitle className="mb-1 text-muted small">
               {route.user ? `by ${route.user.name}` : 'Unknown Author'}
