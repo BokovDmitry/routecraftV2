@@ -56,47 +56,49 @@ class RouteController extends Controller
     
 
     public function store(Request $request)
-    {
-        if (!Auth::check()) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-    
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'destination_city' => 'required|string|max:255',
-            'destination_country' => 'required|string|max:255',
-            'stops' => 'required|array', // Ensure stops is an array
-            'stops.*' => 'string', // Each stop must be a string
-            'days' => 'required|integer|min:1',
-            'budget' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the image
-        ]);
-    
-        // Handle the image upload
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('routes', 'public'); // Store the image in the 'public/routes' directory
-            $validatedData['image'] = $imagePath;
-        }
-    
-        // Create the route
-        $route = Route::create([
-            'user_id' => Auth::id(),
-            'title' => $validatedData['title'],
-            'description' => $validatedData['description'],
-            'destination_city' => $validatedData['destination_city'],
-            'destination_country' => $validatedData['destination_country'],
-            'stops' => $validatedData['stops'],
-            'days' => $validatedData['days'],
-            'budget' => $validatedData['budget'],
-            'image' => $validatedData['image'] ?? null, // Save the image path
-        ]);
-    
-        return response()->json([
-            'message' => 'Route created successfully!',
-            'route' => $route,
-        ], 201);
+{
+    if (!Auth::check()) {
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
+
+    // Decode the stops JSON string into an array
+    $stops = json_decode($request->input('stops'), true);
+
+    // Extract only the 'places' arrays
+    $processedStops = array_map(function ($stop) {
+        return $stop['places'] ?? []; // Default to an empty array if 'places' is missing
+    }, $stops);
+
+    // Merge the processed stops back into the request
+    $request->merge([
+        'stops' => $processedStops,
+    ]);
+
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'destination_country' => 'required|string|max:255',
+        'destination_city' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'budget' => 'required|numeric|min:0',
+        'days' => 'required|integer|min:1',
+        'stops' => 'required|array', // Ensure stops is an array
+        'stops.*' => 'array', // Each stop must be an array
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the image
+    ]);
+
+    // Handle the image upload
+    if ($request->hasFile('image')) {
+        $validatedData['image'] = $request->file('image')->store('routes', 'public');
+    }
+
+    // Create the route
+    $route = Route::create([
+        'user_id' => Auth::id(),
+        ...$validatedData,
+    ]);
+
+    return redirect()->route('routes.index')->with('success', 'Route created successfully!');
+}
 
     public function topLikedRoutes()
 {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import { Container, Button, Row } from 'react-bootstrap';
+import { Container, Button, Row, Form } from 'react-bootstrap'; // Add Form here
 import RouteCard from '../Components/RouteCard';
 import { Link } from '@inertiajs/inertia-react';
 import bgImage from '../../assets/bg18.jpg'; 
