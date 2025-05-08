@@ -111,9 +111,10 @@ function Navbar() {
                     </>
                   ) : (
                     <>
-                      <button className="btn-outline">Log In</button>
-                      <button className="btn-filled">Sign Up</button>
-                    </>
+                    <Link href={route('login', {}, window.Ziggy)} className="btn-outline text-center">Log In</Link>
+                    <Link href={route('register', {}, window.Ziggy)} className="btn-filled text-center">Sign Up</Link>
+                  </>
+
                   )}
                 </div>
               </div>
