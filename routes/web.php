@@ -10,11 +10,13 @@ use App\Http\Controllers\SavedRouteController;
 
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
-Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
-
 Route::middleware(['auth'])->group(function () {
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
+    Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
 });
+
+Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
+
 
 Route::get('/', function () {
     $topLikedRoutes = app(\App\Http\Controllers\RouteController::class)->topLikedRoutes()->getData()->routes;
@@ -32,7 +34,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/saved-routes', [SavedRouteController::class, 'store'])->name('saved-routes.store');
     Route::get('/my-routes', [RouteController::class, 'myRoutes'])->name('my-routes');
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
-    Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
     Route::delete('/saved-routes/{routeId}', [SavedRouteController::class, 'destroy'])->name('saved-routes.destroy');
     Route::get('/saved-routes', [SavedRouteController::class, 'index'])->name('saved-routes.index');
 });
