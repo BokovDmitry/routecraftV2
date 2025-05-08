@@ -86,5 +86,6 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
    ├── README.md
    ```
 ## 👨‍💻 Developers
-Dmytro Bokov
-Karina Yakovennko
+
+- [Dmytro Bokov](https://github.com/BokovDmitry)
+- [Karina Yakovennko](https://github.com/yakovenkoka/yakovenkoka)
