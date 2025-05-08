@@ -143,19 +143,17 @@ class RouteController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-
+        return Inertia::render('MyRoutes', [
+            'routes' => $routes,
+            'user' => Auth::user(), 
+        ]);
         
 }
+
 public function edit($id)
 {
     $route = Route::findOrFail($id);
     return Inertia::render('EditRoutePage', ['route' => $route]);
-}
-return Inertia::render('MyRoutes', [
-    'routes' => $routes,
-    'user' => Auth::user(), 
-]);
-    
 }
 
 public function toggleLike(Route $route)
