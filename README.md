@@ -14,6 +14,13 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
 
 ---
 
+## 🖼️ Screenshots
+
+Here are some previews of the RouteCraft user interface:
+
+
+---
+
 ## 🛠️ Technologies Used
 
 - **Frontend**: React 
