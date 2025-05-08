@@ -1,11 +1,11 @@
   import background from '../../assets/bg14.jpg';
   import '../../css/RoutesHero.css';
-  import { useState, useEffect } from 'react';
+  import { useState, useEffect, useRef } from 'react';
   import iconDefault from '../../assets/add.png';
   import iconHover from '../../assets/plus.png';
   import iconRemove from '../../assets/remove.png';
   import { Inertia } from '@inertiajs/inertia';
-  import { fromJSON } from 'postcss';
+  import { Autocomplete } from '@react-google-maps/api';
 
   function RoutesHero() {
     const [places, setPlaces] = useState(['']);
@@ -21,6 +21,19 @@
       budget_min: '',
       budget_max: '',
     });
+
+    const countryAutocompleteRef = useRef(null);
+    const cityAutocompleteRef = useRef(null);
+
+    const handleCountrySelect = () => {
+      const place = countryAutocompleteRef.current.getPlace();
+      setFormData({ ...formData, destination_country: place.formatted_address });
+    };
+  
+    const handleCitySelect = () => {
+      const place = cityAutocompleteRef.current.getPlace();
+      setFormData({ ...formData, destination_city: place.formatted_address });
+    };
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -129,24 +142,34 @@
           <div className="input-row">
             <div className="input-block">
               <label>Country</label>
-              <input
-              type="text"
-              name="destination_country"
-              placeholder="Enter country"
-              value={formData.destination_country}
-              onChange={handleInputChange}
-            />
+              <Autocomplete
+                onLoad={(ref) => (countryAutocompleteRef.current = ref)}
+                onPlaceChanged={handleCountrySelect}
+              >
+                <input
+                  type="text"
+                  name="destination_country"
+                  placeholder="Enter country"
+                  value={formData.destination_country}
+                  onChange={handleInputChange}
+                />
+            </Autocomplete>
             <div className="error-text">{countryError || ' '}</div>
             </div>
             <div className="input-block">
               <label>City</label>
-              <input
-              type="text"
-              name="destination_city"
-              placeholder="Enter city"
-              value={formData.destination_city}
-              onChange={handleInputChange}
-            />
+              <Autocomplete
+                onLoad={(ref) => (cityAutocompleteRef.current = ref)}
+                onPlaceChanged={handleCitySelect}
+              >
+                <input
+                  type="text"
+                  name="destination_city"
+                  placeholder="Enter city"
+                  value={formData.destination_city}
+                  onChange={handleInputChange}
+                />
+              </Autocomplete>
             <div className="error-text">{cityError || ' '}</div>
             </div>
 
