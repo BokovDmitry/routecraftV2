@@ -60,17 +60,21 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
    php artisan key:generate
 
 4. **Configure environment variables**
+   ```bash
    Update .env with your database and Google Maps API credentials.
 
 5. **Configure environment variables**
-php artisan migrate
+   ```bash
+   php artisan migrate
 
 6. **Start the backend server**
-php artisan serve
+   ```bash
+   php artisan serve
 
 7. **Start the frontend development server**
-cd ../client
-npm start
+   ```bash
+   cd ../client
+   npm start
 
 ## 📁 Project Structure
 routecraft/
