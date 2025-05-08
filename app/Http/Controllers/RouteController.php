@@ -26,33 +26,41 @@ class RouteController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $query = Route::query();
-    
-        if ($request->filled('destination_country')) {
-            $query->where('destination_country', 'like', "%{$request->destination_country}%");
-        }
-    
-        if ($request->filled('destination_city')) {
-            $query->where('destination_city', 'like', "%{$request->destination_city}%");
-        }
-    
-        if ($request->filled('days')) {
-            $query->where('days', $request->days);
-        }
-    
-        if ($request->filled('budget_min') && $request->filled('budget_max')) {
-            $query->whereBetween('budget', [$request->budget_min, $request->budget_max]);
-        }
-    
-        // Fix: Load the 'user' relationship
-        $routes = $query->with('user')->get();
-    
-        return Inertia::render('Routes', [
-            'routes' => $routes,
-            'filters' => $request->only(['destination_country', 'destination_city', 'days', 'budget_min', 'budget_max']),
-        ]);
+{
+    $query = Route::query();
+
+    if ($request->filled('destination_country')) {
+        $query->where('destination_country', 'like', "%{$request->destination_country}%");
     }
+
+    if ($request->filled('destination_city')) {
+        $query->where('destination_city', 'like', "%{$request->destination_city}%");
+    }
+
+    if ($request->filled('days')) {
+        $query->where('days', $request->days);
+    }
+
+    if ($request->filled('budget_min') && $request->filled('budget_max')) {
+        $query->whereBetween('budget', [$request->budget_min, $request->budget_max]);
+    }
+
+    if ($request->filled('must_see_places')) {
+        $places = $request->input('must_see_places');
+        $query->where(function ($q) use ($places) {
+            foreach ($places as $place) {
+                $q->orWhereJsonContains('stops', $place);
+            }
+        });
+    }
+
+    $routes = $query->with('user')->get();
+
+    return Inertia::render('Routes', [
+        'routes' => $routes,
+        'filters' => $request->only(['destination_country', 'destination_city', 'days', 'budget_min', 'budget_max', 'must_see_places']),
+    ]);
+}
     
 
     public function store(Request $request)
@@ -135,10 +143,87 @@ class RouteController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-    return Inertia::render('MyRoutes', [
-        'routes' => $routes,
-    ]);
+        return Inertia::render('MyRoutes', [
+            'routes' => $routes,
+            'user' => Auth::user(), 
+        ]);
+        
 }
 
+public function edit($id)
+{
+    $route = Route::findOrFail($id);
+    return Inertia::render('EditRoutePage', ['route' => $route]);
+}
+
+public function toggleLike(Route $route)
+{
+    $user = Auth::user();
+
+    if (!$user) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+
+    $liked = $route->likes()->where('user_id', $user->id)->exists();
+
+    if ($liked) {
+        // Unlike the route
+        $route->likes()->where('user_id', $user->id)->delete();
+        $route->decrement('likes');
+    } else {
+        // Like the route
+        $route->likes()->create(['user_id' => $user->id]);
+        $route->increment('likes');
+    }
+
+    return response()->json(['liked' => !$liked]);
+}
+    public function getLikedStatus(Route $route)
+    {
+        $user = Auth::user();
     
+        if (!$user) {
+            return response()->json(['liked' => false]); // Default to not liked if user is not authenticated
+        }
+    
+        $liked = $route->likes()->where('user_id', $user->id)->exists();
+    
+        return response()->json(['liked' => $liked]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $route = Route::findOrFail($id);
+    
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'destination_country' => 'required|string|max:255',
+            'destination_city' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'budget' => 'required|numeric|min:0',
+            'days' => 'required|integer|min:1',
+            'stops' => 'required|array',
+            'stops.*' => 'array',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $request->file('image')->store('routes', 'public');
+        }
+    
+        $route->update($validatedData);
+    
+        return redirect()->route('routes.index')->with('success', 'Route updated successfully!');
+    }
+    
+    public function destroy($id)
+    {
+        try {
+            $route = Route::findOrFail($id); // Ensure the route exists
+            $route->delete(); // Delete the route
+            return response()->json(['message' => 'Route deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete route: ' . $e->getMessage()], 500);
+        }
+    }    
 }

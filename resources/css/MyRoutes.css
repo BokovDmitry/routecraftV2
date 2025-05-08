@@ -21,6 +21,7 @@
 
 .hero-content {
   margin-top: 1em;
+  
   position: relative;
   z-index: 2;
   max-width: 800px;
@@ -94,6 +95,88 @@
   margin-bottom: 2em;
   color: #222;
   text-align: center;
+}
+
+/* Стили для поисковой строки */
+.search-bar {
+  max-width: 550px;
+  width: 100%;
+  padding: 0.5em 1em 0.5em 3em;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  background-image: url('../../assets/icons/search.png');
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 16px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+  transition: border-color 0.2s ease;
+  margin-right: 3em;
+}
+
+.search-bar:focus {
+  border-color: #999;
+  border: 1.5px solid #355635;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Контейнер для управления маршрутами */
+.routes-controls {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 5em;
+}
+
+/* Стили для дропдауна сортировки */
+.sort-dropdown {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  padding: 0.5em 2em;
+  border: 1.5px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+  transition: border-color 0.3s ease;
+  appearance: none;
+}
+
+.sort-dropdown:focus {
+  border-color: #355635;
+  box-shadow: none;
+  outline: none;
+}
+
+.sort-text {
+  font-family: 'Roboto Serif', serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #000000;
+  margin-right: 8px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.edit-route-hero {
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.edit-hero-content {
+  margin-top: 3.3em;
 }
 
 

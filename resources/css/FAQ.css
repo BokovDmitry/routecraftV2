@@ -64,8 +64,12 @@
     font-size: 1rem;
     line-height: 1.6;
     padding: 1.25rem 1.5rem;
-    color: #333;
-    background-color: #ffffff;
+    display: block !important;
+    color: #333 !important;
+    background-color: #ffffff !important;
     border-top: 1px solid #e0e0e0;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
   }
   

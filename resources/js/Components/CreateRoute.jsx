@@ -71,6 +71,8 @@ export default function CreateRoute() {
             });
             console.log('Route created successfully:', response.data);
             alert('Route created successfully!');
+            // Redirect to /my-routes
+            window.location.href = '/my-routes';
         } catch (error) {
             console.error('Error creating route:', error.response?.data || error.message);
             alert('Failed to create route. Please try again.');
