@@ -77,12 +77,13 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
    npm start
 
 ## 📁 Project Structure
-routecraft/
-├── client/          # Frontend React app
-├── server/          # Laravel backend API
-├── public/          # Static assets
-├── .env.example     # Environment config template
-├── README.md
+   ```bash
+   routecraft/
+   ├── client/          # Frontend React app
+   ├── server/          # Laravel backend API
+   ├── public/          # Static assets
+   ├── .env.example     # Environment config template
+   ├── README.md
 
 ## 👨‍💻 Developers
 Dmytro Bokov
