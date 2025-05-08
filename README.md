@@ -22,8 +22,6 @@ Here are some previews of the RouteCraft user interface:
 
 ![Create Route](./screenshots/create-route.png)
 
-![Create Route](./screenshots/create-route1.png)
-
 ![Create Route](./screenshots/create-route2.png)
 
 *Form for creating a new travel route.*
