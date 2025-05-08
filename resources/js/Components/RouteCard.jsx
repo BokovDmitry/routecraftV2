@@ -10,7 +10,9 @@ import '../../css/RouteCard.css';
 import editIcon from '../../assets/icons/edit.png';
 import deleteIcon from '../../assets/icons/delete.png';
 
-export default function RouteCard({ route, currentUser }) {
+export default function RouteCard({ route, currentUser, showControls = false, isMyRoutesPage = false }) {
+
+
 
   const [favorites, setFavorites] = useState([]);
 
@@ -56,7 +58,11 @@ export default function RouteCard({ route, currentUser }) {
         className="text-decoration-none text-dark"
       >
 
-<Card className={`route-card shadow-sm position-relative mx-auto ${currentUser && route.user && currentUser.id === route.user.id ? 'has-controls' : ''}`}>
+<Card className={`route-card shadow-sm position-relative mx-auto
+  ${showControls ? 'has-controls' : ''}
+  ${isMyRoutesPage ? 'my-routes-card' : ''}
+`}>
+
 
           <div
             className="bookmark-icon"
@@ -105,18 +111,16 @@ export default function RouteCard({ route, currentUser }) {
               </div>
             </div>
 
-            {currentUser && route.user && currentUser.id === route.user.id && (
+            {showControls && currentUser && route.user && currentUser.id === route.user.id && (
   <div className="d-flex justify-content-between align-items-center mt-3 route-actions">
-    {/* Edit button right */}
     <Link
       href={`/routes/${route.id}/edit`}
       title="Edit Route"
       className="edit-button"
-      onClick={(e) => e.stopPropagation()} 
+      onClick={(e) => e.stopPropagation()}
     >
       Edit
     </Link>
-    {/* Delete icon left */}
     <button
       onClick={(e) => {
         e.preventDefault();
@@ -130,11 +134,9 @@ export default function RouteCard({ route, currentUser }) {
     >
       <img src={deleteIcon} alt="Delete" className="action-icon" />
     </button>
-
-
-
   </div>
 )}
+
 
 
 

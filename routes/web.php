@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SavedRouteController;
+use App\Http\Controllers\FavoritesController; 
 
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
@@ -13,9 +14,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
     Route::get('/routes/{id}/edit', [RouteController::class, 'edit'])->name('routes.edit'); 
+
+    Route::get('/my-routes', [RouteController::class, 'myRoutes'])->name('my-routes');
+    Route::post('/saved-routes', [SavedRouteController::class, 'store'])->name('saved-routes.store');
+    Route::delete('/saved-routes/{routeId}', [SavedRouteController::class, 'destroy'])->name('saved-routes.destroy');
+    Route::get('/saved-routes', [SavedRouteController::class, 'index'])->name('saved-routes.index');
+
+    Route::get('/favorites', [FavoritesController::class, 'index'])->name('favorites'); 
 });
 
 Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
+Route::get('/routes/search', [RouteController::class, 'search'])->name('routes.search');
 
 Route::get('/', function () {
     $topLikedRoutes = app(\App\Http\Controllers\RouteController::class)->topLikedRoutes()->getData()->routes;
@@ -25,37 +34,18 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'topLikedRoutes' => $topLikedRoutes, // Pass the top-liked routes to the view
+        'topLikedRoutes' => $topLikedRoutes,
     ]);
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::post('/saved-routes', [SavedRouteController::class, 'store'])->name('saved-routes.store');
-    Route::get('/my-routes', [RouteController::class, 'myRoutes'])->name('my-routes');
-    Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
-    Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
-    Route::delete('/saved-routes/{routeId}', [SavedRouteController::class, 'destroy'])->name('saved-routes.destroy');
-    Route::get('/saved-routes', [SavedRouteController::class, 'index'])->name('saved-routes.index');
-});
-
-Route::get('/routes/search', [RouteController::class, 'search'])->name('routes.search');
-
-Route::get('/dashboard', function () {
+Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::post('/saved-routes', [SavedRouteController::class, 'store'])->name('saved-routes.store');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/saved-routes', [SavedRouteController::class, 'index'])->name('saved-routes.index');
 });
 
 require __DIR__.'/auth.php';
