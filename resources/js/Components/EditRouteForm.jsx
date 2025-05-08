@@ -246,19 +246,22 @@ export default function EditRouteForm({ existingRoute }) {
                     </Row>
 
                     <div className="day-cards-wrapper">
-                        {console.log("Stops:", stops.length)}
+                        {stops.length === 0 && (
+                            <div className="text-center mb-4">
+                            <Button variant="dark" size="sm" onClick={addNewDayCard}>
+                                Add Day
+                            </Button>
+                            </div>
+                        )}
+
                         {stops.length > 0 && (
                             <>
-                                <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 className="mb-0">Daily Plan</h4>
-                                    <Button
-                                        variant="dark"
-                                        size="sm"
-                                        onClick={addNewDayCard}
-                                    >
-                                        Add Day
-                                    </Button>
-                                </div>
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <h4 className="mb-0">Daily Plan</h4>
+                                <Button variant="dark" size="sm" onClick={addNewDayCard}>
+                                Add Day
+                                </Button>
+                            </div>
                                 <Row>
                                     {stops.map((day, dayIndex) => (
                                         <Col
