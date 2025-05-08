@@ -240,59 +240,65 @@ export default function CreateRoute() {
                                     <Row>
                                         {stops.map((day, dayIndex) => (
                                             <Col key={dayIndex} md={4} className="mb-4 fade-in">
-                                                <div className="day-card p-3">
-                                                    <h5 className="text-center mb-3">Day {dayIndex + 1}</h5>
+                                                <div className="day-card p-3 d-flex flex-column">
+  <div className="day-card-content">
+    <h5 className="text-center mb-3">Day {dayIndex + 1}</h5>
 
-                                                    {/* Input + Add Button */}
-                                                    <div className="places-input-group mb-2">
-                                                        <Form.Control
-                                                            type="text"
-                                                            placeholder="e.g. Big Ben"
-                                                            value={day.places[day.places.length - 1]}
-                                                            onChange={(e) =>
-                                                                handleDayPlaceChange(dayIndex, day.places.length - 1, e.target.value)
-                                                            }
-                                                        />
-                                                        <button
-                                                            className="add-btn-img"
-                                                            type="button"
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                addPlaceToDay(dayIndex);
-                                                            }}
-                                                            onMouseEnter={() => setHovered(dayIndex)}
-                                                            onMouseLeave={() => setHovered(null)}
-                                                        >
-                                                            <img
-                                                                src={hovered === dayIndex ? iconAddWhite : iconAddBlack}
-                                                                alt="Add"
-                                                                className="add-icon"
-                                                            />
-                                                        </button>
-                                                    </div>
-                                                    <div className="error-text">{day.error || ' '}</div>
+    <div className="places-input-group mb-2">
+      <Form.Control
+        type="text"
+        placeholder="e.g. Big Ben"
+        value={day.places[day.places.length - 1]}
+        onChange={(e) =>
+          handleDayPlaceChange(dayIndex, day.places.length - 1, e.target.value)
+        }
+      />
+      <button
+        className="add-btn-img"
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          addPlaceToDay(dayIndex);
+        }}
+        onMouseEnter={() => setHovered(dayIndex)}
+        onMouseLeave={() => setHovered(null)}
+      >
+        <img
+          src={hovered === dayIndex ? iconAddWhite : iconAddBlack}
+          alt="Add"
+          className="add-icon"
+        />
+      </button>
+    </div>
+    <div className="error-text">{day.error || ' '}</div>
 
-                                                    {/* Added Places */}
-                                                    <div className="added-places mt-3">
-                                                        {day.places.slice(0, -1).map((place, index) => (
-                                                            <div key={index} className="place-tag">
-                                                                {place}
-                                                                <button
-                                                                    className="remove-btn-img"
-                                                                    onClick={() => removePlaceFromDay(dayIndex, index)}
-                                                                >
-                                                                    <img src={iconRemove} alt="Remove" className="remove-icon" />
-                                                                </button>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                    <div className="text-end mt-3">
-                                                        <Button variant="outline-danger" size="sm" onClick={() => removeDayCard(dayIndex)}>
-                                                            Delete Day
-                                                        </Button>
-                                                    </div>
+    <div className="added-places mt-3">
+      {day.places.slice(0, -1).map((place, index) => (
+        <div key={index} className="place-tag">
+          {place}
+          <button
+            className="remove-btn-img"
+            onClick={() => removePlaceFromDay(dayIndex, index)}
+          >
+            <img src={iconRemove} alt="Remove" className="remove-icon" />
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
 
-                                                </div>
+  {/* Прижатая кнопка */}
+  <div className="text-end mt-3">
+    <Button
+      variant="outline-danger"
+      size="sm"
+      onClick={() => removeDayCard(dayIndex)}
+    >
+      Delete Day
+    </Button>
+  </div>
+</div>
+
                                             </Col>
                                         ))}
                                     </Row>

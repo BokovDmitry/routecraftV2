@@ -98,11 +98,19 @@ input[type="number"] {
     background-color: #f8f9fa;
     border: 1px solid #ddd;
     border-radius: 10px;
-    max-height: 300px;
+    height: 300px;
     overflow-y: auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
   }
+  
+  .day-card-content {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
 
   .day-cards-wrapper {
     overflow: hidden;
