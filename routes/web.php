@@ -24,6 +24,7 @@ Route::get('/routes/{route}/liked-status', [RouteController::class, 'getLikedSta
 Route::post('/routes/{route}/like', [RouteController::class, 'toggleLike']);
 
 Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
+Route::delete('/routes/{id}', [RouteController::class, 'destroy']);
 
 Route::get('/', function () {
     $topLikedRoutes = app(\App\Http\Controllers\RouteController::class)->topLikedRoutes()->getData()->routes;

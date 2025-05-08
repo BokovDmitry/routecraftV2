@@ -214,5 +214,16 @@ public function toggleLike(Route $route)
         $route->update($validatedData);
     
         return redirect()->route('routes.index')->with('success', 'Route updated successfully!');
+    }
+    
+    public function destroy($id)
+    {
+        try {
+            $route = Route::findOrFail($id); // Ensure the route exists
+            $route->delete(); // Delete the route
+            return response()->json(['message' => 'Route deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete route: ' . $e->getMessage()], 500);
+        }
     }    
 }
