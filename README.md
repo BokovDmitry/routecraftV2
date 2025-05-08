@@ -60,7 +60,7 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
    php artisan key:generate
 
 4. **Configure environment variables**
-Update .env with your database and Google Maps API credentials.
+   Update .env with your database and Google Maps API credentials.
 
 5. **Configure environment variables**
 php artisan migrate
