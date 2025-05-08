@@ -10,16 +10,14 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
 - 📍 **Create and Share Routes**: Share your personal travel itineraries including stops, descriptions, and recommendations.
 - 🔎 **Search & Filter**: Easily browse routes by country, city, category (nature, culture, food, etc.), or duration.
 - 💬 **Comment & Connect**: Engage with other travelers, ask questions, and exchange tips.
-- 🗺️ **Interactive Maps**: View each route with a fully interactive map.
 - 🧳 **Save Favorites**: Bookmark routes you love and want to try later.
-- 👤 **User Profiles**: View routes shared by specific users and follow their journey.
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **Frontend**: React *(or your framework of choice)*
-- **Backend**: Laravel *(or other framework, e.g., Node.js, Django)*
+- **Frontend**: React 
+- **Backend**: Laravel, Inertia
 - **Database**: MySQL
 - **Map Integration**: Google Maps API
 - **Authentication**: Session-based or OAuth
