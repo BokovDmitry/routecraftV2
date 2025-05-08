@@ -10,8 +10,11 @@ import "../../css/RouteCard.css";
 import editIcon from "../../assets/icons/edit.png";
 import deleteIcon from "../../assets/icons/delete.png";
 
-export default function RouteCard({ route, currentUser }) {
-    const [favorites, setFavorites] = useState([]);
+export default function RouteCard({ route, currentUser, showControls = false, isMyRoutesPage = false }) {
+
+
+
+  const [favorites, setFavorites] = useState([]);
 
     // Fetch saved routes when the component mounts
     useEffect(() => {
@@ -63,7 +66,7 @@ export default function RouteCard({ route, currentUser }) {
                         currentUser.id === route.user.id
                             ? "has-controls"
                             : ""
-                    }`}
+                    }   ${isMyRoutesPage ? 'my-routes-card' : ''}`}
                 >
                     <div
                         className="bookmark-icon"
@@ -135,7 +138,7 @@ export default function RouteCard({ route, currentUser }) {
                             </div>
                         </div>
 
-                        {currentUser &&
+                        {showControls && currentUser &&
                             route.user &&
                             currentUser.id === route.user.id && (
                                 <div className="d-flex justify-content-between align-items-center mt-3 route-actions">

@@ -48,7 +48,10 @@ function Navbar() {
               <ul className="navbar-links d-flex list-unstyled mb-0">
                 <li className="me-4"><Link href="/" className={isActive('/')}>Home</Link></li>
                 <li className="me-4"><Link href={route('routes.index')} className={isActive('/routes')}>Routes</Link></li>
-                <li className="me-4"><Link href="/favorites">Favorites</Link></li>
+                <li className="me-4">
+                <Link href={route('favorites')} className={isActive('/favorites')}>Favorites</Link>
+              </li>
+
                 <li className="me-4"><Link href="/my-routes">My Routes</Link></li>
                 <li><Link href="/about">About Us</Link></li>
               </ul>
@@ -93,7 +96,10 @@ function Navbar() {
                 <ul className="list-unstyled mb-3">
                   <li><Link href="/" className="d-block py-2">Home</Link></li>
                   <li><Link href={route('routes.index')} className="d-block py-2">Routes</Link></li>
-                  <li><Link href="/favorites" className="d-block py-2">Favorites</Link></li>
+                  <li>
+                    <Link href={route('favorites')} className="d-block py-2">Favorites</Link>
+                  </li>
+
                   <li><Link href="/my-routes" className="d-block py-2">My Routes</Link></li>
                   <li><Link href="/about" className="d-block py-2">About Us</Link></li>
                 </ul>

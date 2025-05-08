@@ -103,7 +103,7 @@ export default function MyRoutes({ routes, user }) {
 
                                 <Row className="justify-content-center g-4">
                                     {filteredRoutes.map((route) => (
-                                        <RouteCard key={route.id} route={route} currentUser={user} />
+                                        <RouteCard key={route.id} route={route} currentUser={user} showControls={true} isMyRoutesPage={true}/>
                                     ))}
                                 </Row>
                             </>
