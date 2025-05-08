@@ -7,14 +7,14 @@ use Inertia\Inertia;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SavedRouteController;
 
-
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
-Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
-
 Route::middleware(['auth'])->group(function () {
+    Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
 });
+
+Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
 
 Route::get('/', function () {
     $topLikedRoutes = app(\App\Http\Controllers\RouteController::class)->topLikedRoutes()->getData()->routes;
