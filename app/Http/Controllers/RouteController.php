@@ -146,7 +146,43 @@ class RouteController extends Controller
     return Inertia::render('MyRoutes', [
         'routes' => $routes,
     ]);
+    
 }
+
+public function toggleLike(Route $route)
+{
+    $user = Auth::user();
+
+    if (!$user) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+
+    $liked = $route->likes()->where('user_id', $user->id)->exists();
+
+    if ($liked) {
+        // Unlike the route
+        $route->likes()->where('user_id', $user->id)->delete();
+        $route->decrement('likes');
+    } else {
+        // Like the route
+        $route->likes()->create(['user_id' => $user->id]);
+        $route->increment('likes');
+    }
+
+    return response()->json(['liked' => !$liked]);
+}
+    public function getLikedStatus(Route $route)
+    {
+        $user = Auth::user();
+    
+        if (!$user) {
+            return response()->json(['liked' => false]); // Default to not liked if user is not authenticated
+        }
+    
+        $liked = $route->likes()->where('user_id', $user->id)->exists();
+    
+        return response()->json(['liked' => $liked]);
+    }
 
     
 }

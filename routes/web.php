@@ -10,6 +10,11 @@ use App\Http\Controllers\SavedRouteController;
 
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
+Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');
+
+Route::get('/routes/{route}/liked-status', [RouteController::class, 'getLikedStatus']);
+Route::post('/routes/{route}/like', [RouteController::class, 'toggleLike']);
+
 Route::middleware(['auth'])->group(function () {
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
     Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
