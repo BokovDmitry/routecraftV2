@@ -191,5 +191,28 @@ public function toggleLike(Route $route)
         return response()->json(['liked' => $liked]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $route = Route::findOrFail($id);
     
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'destination_country' => 'required|string|max:255',
+            'destination_city' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'budget' => 'required|numeric|min:0',
+            'days' => 'required|integer|min:1',
+            'stops' => 'required|array',
+            'stops.*' => 'array',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $request->file('image')->store('routes', 'public');
+        }
+    
+        $route->update($validatedData);
+    
+        return redirect()->route('routes.index')->with('success', 'Route updated successfully!');
+    }    
 }

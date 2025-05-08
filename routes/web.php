@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
 });
 
+Route::post('/routes/{id}/update', [RouteController::class, 'update'])->name('routes.update');
 Route::get('/routes/search', [RouteController::class, 'search'])->name('routes.search');
 
 Route::get('/routes/{route}/liked-status', [RouteController::class, 'getLikedStatus']);
