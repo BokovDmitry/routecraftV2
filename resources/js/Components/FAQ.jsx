@@ -5,9 +5,9 @@ function FAQ() {
   return (
     <section className="faq-section py-5 px-4">
       <div className="container">
-        <h2 className="text-center mb-16 section-title">Frequently Asked Questions</h2>
-        <Accordion defaultActiveKey="0">
+        <h2 className="text-center mb-5 section-title">Frequently Asked Questions</h2>
 
+        <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0" className="mb-3 item first">
             <Accordion.Header>
               How can I find a travel route that suits me?
@@ -43,7 +43,6 @@ function FAQ() {
               Yes! RouteCraft is completely free to use for all users. There are no hidden charges or subscriptions required.
             </Accordion.Body>
           </Accordion.Item>
-
         </Accordion>
       </div>
     </section>

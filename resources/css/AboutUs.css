@@ -1,0 +1,64 @@
+/* Hero section */
+.about-hero {
+    position: relative;
+    height: 45vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .about-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  .about-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 1rem 2rem;
+    max-width: 800px;
+  }
+  
+  .about-title {
+    font-family: 'Roboto Serif', serif;
+    font-size: 3.2em; 
+    font-weight: 700;
+    margin-bottom: 0.4em;
+  }
+  
+  .about-subtitle {
+    font-family: 'Roboto Serif', serif;
+    font-size: 1.6em;  
+    font-weight: 300;
+    color: #e6e6e6;
+  }
+  
+  /* Content section */
+  .about-content h2 {
+    font-family: 'Roboto Serif', serif;
+    font-size: 2em;  
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .about-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;  
+    line-height: 1.8;
+    color: #333;
+  }
+  
+  /* Reduce image size */
+  .about-content img {
+    max-width: 90%; 
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+  

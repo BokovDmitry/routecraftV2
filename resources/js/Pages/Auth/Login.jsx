@@ -5,6 +5,8 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import Navbar from '../../Components/Navbar';
+import "../../../css/Login.css"
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -22,6 +24,8 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
+        <>
+        <Navbar />
         <GuestLayout>
             <Head title="Log in" />
 
@@ -33,6 +37,7 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
+                    <h1 className='login-title'>Login</h1>
                     <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
@@ -65,22 +70,19 @@ export default function Login({ status, canResetPassword }) {
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) =>
-                                setData('remember', e.target.checked)
-                            }
-                        />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
+                <div className="mt-4 flex justify-between items-center">
+                <label className="flex items-center">
+                    <Checkbox
+                        name="remember"
+                        checked={data.remember}
+                        onChange={(e) =>
+                            setData('remember', e.target.checked)
+                        }
+                    />
+                    <span className="ms-2 text-sm text-gray-600">
+                        Remember me
+                    </span>
+                </label>
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
@@ -89,12 +91,23 @@ export default function Login({ status, canResetPassword }) {
                             Forgot your password?
                         </Link>
                     )}
+                </div>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
+                <div className="mt-4 flex items-center justify-end w-full">
+                    <PrimaryButton className="w-full box-border py-3" disabled={processing}>
+                    Log in
                     </PrimaryButton>
                 </div>
             </form>
+            <div className='under-form'>
+                <p className='under-form-text'>
+                    Don't have an account yet?
+                </p>
+                <Link href="/register" className="under-form-link">
+                    <u>Register</u>
+                </Link>
+            </div>
         </GuestLayout>
+        </>
     );
 }

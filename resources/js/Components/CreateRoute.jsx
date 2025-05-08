@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import axios from 'axios';
 import '../../css/CreateRoute.css';
 import iconAddBlack from '../../assets/add.png';
 import iconAddWhite from '../../assets/plus.png';
@@ -11,14 +12,14 @@ import iconRemove from '../../assets/remove.png';
 export default function CreateRoute() {
     const [formData, setFormData] = useState({
         title: '',
-        country: '',
-        city: '',
+        destination_country: '',
+        destination_city: '',
         description: '',
         budget: '',
         days: ''
     });
 
-    const [placesPerDay, setPlacesPerDay] = useState([]);
+    const [stops, setPlacesPerDay] = useState([]);
     const [hovered, setHovered] = useState(null);
     const [isDaysLocked, setIsDaysLocked] = useState(false);
     const [image, setImage] = useState(null);
@@ -47,14 +48,39 @@ export default function CreateRoute() {
 
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form Data:', formData);
-        console.log('Places Per Day:', placesPerDay);
+    
+        const formDataToSend = new FormData();
+        formDataToSend.append('title', formData.title);
+        formDataToSend.append('destination_country', formData.destination_country);
+        formDataToSend.append('destination_city', formData.destination_city);
+        formDataToSend.append('description', formData.description);
+        formDataToSend.append('budget', formData.budget);
+        formDataToSend.append('days', formData.days);
+        formDataToSend.append('stops', JSON.stringify(stops));
+        if (image) {
+            formDataToSend.append('image', document.getElementById('routeImage').files[0]);
+        }
+    
+        try {
+            const response = await axios.post('/routes', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Route created successfully:', response.data);
+            alert('Route created successfully!');
+            // Redirect to /my-routes
+            window.location.href = '/my-routes';
+        } catch (error) {
+            console.error('Error creating route:', error.response?.data || error.message);
+            alert('Failed to create route. Please try again.');
+        }
     };
 
     const handleDayPlaceChange = (dayIndex, index, value) => {
-        const updated = [...placesPerDay];
+        const updated = [...stops];
         updated[dayIndex].places[index] = value;
         if (value.trim() !== '') {
             updated[dayIndex].error = '';
@@ -63,7 +89,7 @@ export default function CreateRoute() {
     };
 
     const addPlaceToDay = (dayIndex) => {
-        const updated = [...placesPerDay];
+        const updated = [...stops];
         const last = updated[dayIndex].places[updated[dayIndex].places.length - 1];
         if (last.trim() !== '') {
             updated[dayIndex].places.push('');
@@ -75,19 +101,19 @@ export default function CreateRoute() {
     };
 
     const removePlaceFromDay = (dayIndex, index) => {
-        const updated = [...placesPerDay];
+        const updated = [...stops];
         updated[dayIndex].places.splice(index, 1);
         setPlacesPerDay(updated);
     };
 
     const removeDayCard = (dayIndex) => {
-        const updated = [...placesPerDay];
+        const updated = [...stops];
         updated.splice(dayIndex, 1);
         setPlacesPerDay(updated);
     };
 
     const addNewDayCard = () => {
-        setPlacesPerDay([...placesPerDay, { places: [''], error: '' }]);
+        setPlacesPerDay([...stops, { places: [''], error: '' }]);
     };
 
 
@@ -139,9 +165,9 @@ export default function CreateRoute() {
                                     <Form.Label>Country</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        name="country"
+                                        name="destination_country"
                                         placeholder="Enter country"
-                                        value={formData.country}
+                                        value={formData.destination_country}
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
@@ -151,9 +177,9 @@ export default function CreateRoute() {
                                     <Form.Label>City</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        name="city"
+                                        name="destination_city"
                                         placeholder="Enter city"
-                                        value={formData.city}
+                                        value={formData.destination_city}
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
@@ -202,9 +228,9 @@ export default function CreateRoute() {
                         </Row>
 
                         <div
-                            className={`day-cards-wrapper ${placesPerDay.length > 0 ? 'expand' : 'collapse'}`}
+                            className={`day-cards-wrapper ${stops.length > 0 ? 'expand' : 'collapse'}`}
                         >
-                            {placesPerDay.length > 0 && (
+                            {stops.length > 0 && (
                                 <div className="day-cards-container fade-in-smooth">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <h4 className="mb-0">Daily Plan</h4>
@@ -214,7 +240,7 @@ export default function CreateRoute() {
                                     </div>
 
                                     <Row>
-                                        {placesPerDay.map((day, dayIndex) => (
+                                        {stops.map((day, dayIndex) => (
                                             <Col key={dayIndex} md={4} className="mb-4 fade-in">
                                                 <div className="day-card p-3">
                                                     <h5 className="text-center mb-3">Day {dayIndex + 1}</h5>

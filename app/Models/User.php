@@ -52,4 +52,9 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Route::class);
     }
 
+    public function savedRoutes()
+{
+    return $this->hasMany(\App\Models\SavedRoute::class);
+}
+
 }

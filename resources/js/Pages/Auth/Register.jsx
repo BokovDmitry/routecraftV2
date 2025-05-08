@@ -4,6 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import Navbar from '../../Components/Navbar';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -22,11 +23,14 @@ export default function Register() {
     };
 
     return (
+        <>
+        <Navbar />
         <GuestLayout>
             <Head title="Register" />
 
             <form onSubmit={submit}>
                 <div>
+                    <h1 className='login-title'>Register</h1>
                     <InputLabel htmlFor="name" value="Name" />
 
                     <TextInput
@@ -102,19 +106,20 @@ export default function Register() {
                     />
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
+                <div className="mt-4 flex flex-column items-center justify-end w-full">
+                    <PrimaryButton className="w-full box-border py-3" disabled={processing}>
+                        Register
+                    </PrimaryButton>
                     <Link
                         href={route('login')}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="mt-2 rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         Already registered?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
                 </div>
             </form>
         </GuestLayout>
+        </>
     );
 }

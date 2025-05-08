@@ -1,14 +1,19 @@
 .route-card {
-    width: 340px;
-    height: 370px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: #fff;
-    transition: transform 0.3s ease;
-  }
+  width: 340px;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, height 0.3s ease;
+}
+
+.route-card.has-controls {
+  height: 400px; /* увеличим высоту */
+}
+
   
   .route-info {
     display: flex;
@@ -105,6 +110,51 @@
     font-weight: 500;
     color: #555; 
   }
+
+  .icon-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+  .route-actions {
+    margin-top: 1.5em;
+  }
+  
+  .action-icon {
+    width: 26px;
+    height: 26px;
+    filter: brightness(0);
+    transition: transform 0.4s ease;
+  }
+  
+  .icon-button:hover .action-icon {
+    transform: scale(1.1);
+    filter: brightness(0.3);
+  }
+  
+  .edit-button {
+    background-color: #000;
+    color: #fff;
+    border: 1.6px solid #000;
+    padding: 3.8px 18px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-button:hover {
+    background-color: transparent;
+    color: #000;
+    text-decoration: none;
+  }
+  
 
   .route-title-truncated {
     display: -webkit-box;
