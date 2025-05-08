@@ -16,9 +16,21 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
 
 ## 🖼️ Screenshots
 
+![Homepage](./screenshots/homepage.png)
+
 Here are some previews of the RouteCraft user interface:
 
+![Create Route](./screenshots/create-route.png)
 
+*Form for creating a new travel route.*
+
+![My Routes](./screenshots/my-routes.png)
+
+*User dashboard with created routes.*
+
+![Map Integration](./screenshots/map-view.png)
+
+*Interactive map displaying selected route stops.*
 ---
 
 ## 🛠️ Technologies Used
