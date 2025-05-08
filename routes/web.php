@@ -7,12 +7,13 @@ use Inertia\Inertia;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SavedRouteController;
 
-
 Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
+    Route::get('/routes/{id}/edit', [RouteController::class, 'edit'])->name('routes.edit'); 
     Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
 });
 
