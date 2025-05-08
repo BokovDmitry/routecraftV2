@@ -84,7 +84,7 @@ RouteCraft is a web platform where travelers from all over the globe can share, 
    ├── public/          # Static assets
    ├── .env.example     # Environment config template
    ├── README.md
-
+   ```
 ## 👨‍💻 Developers
 Dmytro Bokov
 Karina Yakovennko
