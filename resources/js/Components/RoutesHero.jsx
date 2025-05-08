@@ -32,8 +32,16 @@
   
     const handleCitySelect = () => {
       const place = cityAutocompleteRef.current.getPlace();
-      setFormData({ ...formData, destination_city: place.formatted_address });
-    };
+      if (place && place.address_components) {
+          // Extract the city name from the address components
+          const cityComponent = place.address_components.find(component =>
+              component.types.includes("locality")
+          );
+          const cityName = cityComponent ? cityComponent.long_name : place.name;
+  
+          setFormData({ ...formData, destination_city: cityName });
+      }
+  };
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
