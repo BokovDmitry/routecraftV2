@@ -34,12 +34,26 @@ export default function RouteDetail({ route }) {
 
     const [liked, setLiked] = useState(false);
 
-    const toggleLike = () => {
-        setLiked(!liked);
+    const handleToggleLike = async (routeId) => {
+        try {
+            const response = await axios.post(`/routes/${routeId}/like`);
+            setLiked(response.data.liked);
+        } catch (error) {
+            console.error('Error toggling like:', error);
+        }
     };
 
 
     useEffect(() => {
+        const fetchLikedStatus = async () => {
+            try {
+                const response = await axios.get(`/routes/${route.id}/liked-status`);
+                setLiked(response.data.liked); // Set the initial liked status
+            } catch (error) {
+                console.error('Error fetching liked status:', error);
+            }
+        };
+    
         const fetchFavorites = async () => {
             try {
                 const response = await axios.get('/saved-routes');
@@ -49,8 +63,10 @@ export default function RouteDetail({ route }) {
                 console.error('Error fetching saved routes:', error);
             }
         };
+    
+        fetchLikedStatus();
         fetchFavorites();
-    }, []);
+    }, [route.id]);
 
     const handleToggleFavorite = async (routeId) => {
         const isFavorite = favorites.includes(routeId);
@@ -133,11 +149,11 @@ export default function RouteDetail({ route }) {
                             <div className="like-section mt-auto align-self-end d-flex align-items-center">
                                 <span className="like-text me-3">Liked: </span>
                                 <img
-                                    src={liked ? heartFilled : heartDefault}
-                                    alt="like icon"
-                                    className="like-icon"
-                                    onClick={toggleLike}
-                                    style={{ cursor: 'pointer' }}
+                                src={liked ? heartFilled : heartDefault}
+                                alt="like icon"
+                                className="like-icon"
+                                onClick={() => handleToggleLike(route.id)} // Ensure route.id is passed correctly
+                                style={{ cursor: 'pointer' }}
                                 />
                             </div>
                         </Col>
