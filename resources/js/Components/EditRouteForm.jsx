@@ -39,11 +39,13 @@ export default function EditRouteForm({ existingRoute }) {
         }
     }, [existingRoute.stops]);
 
-    // useEffect(() => {
-    //     if (Array.isArray(existingRoute.stops)) {
-    //         setStops(existingRoute.stops.map(places => ({ places: [...places, ''], error: '' })));
-    //     }
-    // }, [existingRoute.stops]);
+    useEffect(() => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            days: stops.length, // Update the days field based on the number of stops
+        }));
+    }, [stops]);
+
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
