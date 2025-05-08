@@ -7,8 +7,11 @@ import filledBookmark from '../../assets/icons/bookmark-filled.png';
 import defaultImage from '../../assets/dubai.jpg';
 import heartIcon from '../../assets/icons/heart.png';
 import '../../css/RouteCard.css';
+import editIcon from '../../assets/icons/edit.png';
+import deleteIcon from '../../assets/icons/delete.png';
 
-export default function RouteCard({ route }) {
+export default function RouteCard({ route, currentUser }) {
+
   const [favorites, setFavorites] = useState([]);
 
   // Fetch saved routes when the component mounts
@@ -53,7 +56,8 @@ export default function RouteCard({ route }) {
         className="text-decoration-none text-dark"
       >
 
-        <Card className="route-card shadow-sm position-relative mx-auto">
+<Card className={`route-card shadow-sm position-relative mx-auto ${currentUser && route.user && currentUser.id === route.user.id ? 'has-controls' : ''}`}>
+
           <div
             className="bookmark-icon"
             onClick={(e) => {
@@ -100,6 +104,41 @@ export default function RouteCard({ route }) {
                 <span className="small likes-count">{route.likes}</span>
               </div>
             </div>
+
+            {currentUser && route.user && currentUser.id === route.user.id && (
+  <div className="d-flex justify-content-between align-items-center mt-3 route-actions">
+    {/* Edit button right */}
+    <Link
+      href={`/routes/${route.id}/edit`}
+      title="Edit Route"
+      className="edit-button"
+      onClick={(e) => e.stopPropagation()} 
+    >
+      Edit
+    </Link>
+    {/* Delete icon left */}
+    <button
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (confirm('Are you sure you want to delete this route?')) {
+          // TODO: Add deletion logic
+        }
+      }}
+      title="Delete Route"
+      className="icon-button"
+    >
+      <img src={deleteIcon} alt="Delete" className="action-icon" />
+    </button>
+
+
+
+  </div>
+)}
+
+
+
+
           </Card.Body>
         </Card>
       </Link>

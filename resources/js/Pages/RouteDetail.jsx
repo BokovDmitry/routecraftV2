@@ -11,8 +11,6 @@ import filledBookmark from '../../assets/icons/bookmark-filled.png';
 import heartDefault from '../../assets/icons/heart-default.png';
 import heartFilled from '../../assets/icons/heart-filled.png';
 
-
-
 export default function RouteDetail({ route }) {
     const {
         image,
@@ -28,18 +26,14 @@ export default function RouteDetail({ route }) {
     const parsedPlaces = Array.isArray(stops)
         ? stops.map((places) => ({ places }))
         : [];
-    console.log(route);
 
     const [favorites, setFavorites] = useState([]);
-
     const [liked, setLiked] = useState(false);
-
-    const toggleLike = () => {
-        setLiked(!liked);
-    };
-
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
+
         const fetchFavorites = async () => {
             try {
                 const response = await axios.get('/saved-routes');
@@ -49,8 +43,11 @@ export default function RouteDetail({ route }) {
                 console.error('Error fetching saved routes:', error);
             }
         };
+
         fetchFavorites();
     }, []);
+
+    const toggleLike = () => setLiked(!liked);
 
     const handleToggleFavorite = async (routeId) => {
         const isFavorite = favorites.includes(routeId);
@@ -67,20 +64,22 @@ export default function RouteDetail({ route }) {
         }
     };
 
-
     return (
         <>
             <Navbar />
-            <div className="route-detail-hero" style={{ backgroundImage: `url(${background})` }}>
-                <div className="route-detail-hero-overlay" />
-                <div className="hero-content px-3">
-                    <p className="hero-subtitle py-3">ROUTE DETAIL</p>
-                    <h1 className="hero-title py-2">{title}</h1>
-                    <p className="hero-description py-1">
-                        This is the individual route page where you can see full details, like the route, and check out user reviews.
-                    </p>
+
+            {isMounted && (
+                <div className="route-detail-hero" style={{ backgroundImage: `url(${background})` }}>
+                    <div className="route-detail-hero-overlay" />
+                    <div className="hero-content px-3">
+                        <p className="hero-subtitle py-3">ROUTE DETAIL</p>
+                        <h1 className="hero-title py-2">{title}</h1>
+                        <p className="hero-description py-1">
+                            This is the individual route page where you can see full details, like the route, and check out user reviews.
+                        </p>
+                    </div>
                 </div>
-            </div>
+            )}
 
             <main>
                 <Container className="py-5">
@@ -93,7 +92,6 @@ export default function RouteDetail({ route }) {
                             />
                         </Col>
                         <Col md={7} className="d-flex flex-column justify-content-between">
-
                             <div>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <h2 className="route-title mb-0">{title}</h2>
@@ -141,17 +139,12 @@ export default function RouteDetail({ route }) {
                                 />
                             </div>
                         </Col>
-
-
                     </Row>
 
                     <Row className="mt-4">
-                        <Row className="mt-4">
-                            <Col>
-                                <p className="route-description-full">{description}</p>
-                            </Col>
-                        </Row>
-
+                        <Col>
+                            <p className="route-description-full">{description}</p>
+                        </Col>
                     </Row>
 
                     <hr className="my-5" />
@@ -160,26 +153,28 @@ export default function RouteDetail({ route }) {
                         <>
                             <h3 className="daily-stops-heading">Daily Stops</h3>
                             <Row className="daily-stops-row">
+                                {parsedPlaces.map((day, dayIndex) => {
+                                    const validPlaces = day.places.filter(place => place.trim() !== '');
+                                    if (validPlaces.length === 0) return null;
 
-                                {parsedPlaces.map((day, dayIndex) => (
-                                    <Col key={dayIndex} md={4} className="mb-4">
-                                        <div className="day-card p-3 h-100">
-                                            <h5 className="mb-3">Day {dayIndex + 1}</h5>
-                                            <ul>
-                                                {Array.isArray(day.places) &&
-                                                    day.places.map((place, index) => (
+                                    return (
+                                        <Col key={dayIndex} md={4} className="mb-4">
+                                            <div className="day-card p-3 h-100">
+                                                <h5 className="mb-3">Day {dayIndex + 1}</h5>
+                                                <ul>
+                                                    {validPlaces.map((place, index) => (
                                                         <li key={index}>{place}</li>
                                                     ))}
-                                            </ul>
-                                        </div>
-                                    </Col>
-                                ))}
+                                                </ul>
+                                            </div>
+                                        </Col>
+                                    );
+                                })}
                             </Row>
                         </>
                     )}
                 </Container>
             </main>
-
 
             <Footer />
         </>

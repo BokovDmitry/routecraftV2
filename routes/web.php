@@ -12,6 +12,7 @@ Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
 Route::middleware(['auth'])->group(function () {
     Route::get('/routes/create', [RouteController::class, 'create'])->name('routes.create');
     Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
+    Route::get('/routes/{id}/edit', [RouteController::class, 'edit'])->name('routes.edit'); 
 });
 
 Route::get('/routes/{id}', [RouteController::class, 'show'])->name('routes.show');

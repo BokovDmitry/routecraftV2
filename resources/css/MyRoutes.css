@@ -21,6 +21,7 @@
 
 .hero-content {
   margin-top: 1em;
+  
   position: relative;
   z-index: 2;
   max-width: 800px;
@@ -159,6 +160,23 @@
   margin-right: 8px;
   white-space: nowrap;
   display: inline-block;
+}
+
+.edit-route-hero {
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.edit-hero-content {
+  margin-top: 3.3em;
 }
 
 
